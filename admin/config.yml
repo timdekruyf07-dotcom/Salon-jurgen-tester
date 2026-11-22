@@ -1,21 +1,31 @@
 # ==========================================
 # SALON JURGEN
-# SVELTIA CMS
+# SVELTIA CMS CONFIGURATIE
+# ==========================================
+
+
+# ==========================================
+# GITHUB & INLOGGEN
 # ==========================================
 
 backend:
   name: github
-  repo: JOUW-GITHUB-NAAM/salon-jurgen-demo
+  repo: timdekruyf07-dotcom/Salon-jurgen-tester
   branch: main
   auth_methods:
     - token
 
 
 # ==========================================
-# TAAL EN AFBEELDINGEN
+# TAAL
 # ==========================================
 
 locale: nl
+
+
+# ==========================================
+# AFBEELDINGEN
+# ==========================================
 
 media_folder: "images/uploads"
 public_folder: "images/uploads"
