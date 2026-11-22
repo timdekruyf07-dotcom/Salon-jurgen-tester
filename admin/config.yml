@@ -1,0 +1,227 @@
+# ==========================================
+# SALON JURGEN
+# SVELTIA CMS
+# ==========================================
+
+backend:
+  name: github
+  repo: JOUW-GITHUB-NAAM/salon-jurgen-demo
+  branch: main
+  auth_methods:
+    - token
+
+
+# ==========================================
+# TAAL EN AFBEELDINGEN
+# ==========================================
+
+locale: nl
+
+media_folder: "images/uploads"
+public_folder: "images/uploads"
+
+
+# ==========================================
+# BEHEERONDERDELEN
+# ==========================================
+
+collections:
+
+  - name: website
+    label: Website beheren
+
+    files:
+
+      # ====================================
+      # HOMEPAGE
+      # ====================================
+
+      - name: homepage
+        label: Homepage beheren
+        file: content/home.json
+        format: json
+
+        fields:
+
+          # =================================
+          # HERO
+          # =================================
+
+          - label: Bovenkant van de homepage
+            name: hero
+            widget: object
+            collapsed: true
+
+            fields:
+
+              - label: Kleine tekst boven de titel
+                name: eyebrow
+                widget: string
+
+              - label: Eerste regel van de titel
+                name: title_line1
+                widget: string
+
+              - label: Tweede regel van de titel
+                name: title_line2
+                widget: string
+
+              - label: Introductietekst
+                name: description
+                widget: text
+
+              - label: Grote foto
+                name: image
+                widget: image
+                required: false
+                hint: "Upload een foto van de salon. Zonder foto blijft de grafische achtergrond zichtbaar."
+
+              - label: Beschrijving van de foto
+                name: image_alt
+                widget: string
+                required: false
+
+
+          # =================================
+          # BEHANDELINGEN
+          # =================================
+
+          - label: Introductie behandelingen
+            name: services_introduction
+            widget: text
+
+          - label: Behandelingen
+            name: services
+            widget: list
+            label_singular: Behandeling
+            summary: "{{fields.name}}"
+            required: false
+            default: []
+            hint: "Voeg een behandeling toe of wijzig de bestaande behandelingen."
+
+            fields:
+
+              - label: Naam van de behandeling
+                name: name
+                widget: string
+
+              - label: Beschrijving
+                name: description
+                widget: text
+
+              - label: Prijs
+                name: price
+                widget: string
+                required: false
+                hint: "Bijvoorbeeld: € 25,50. Laat leeg als de prijs nog niet bekend is."
+
+              - label: Behandeltijd
+                name: duration
+                widget: string
+                required: false
+                hint: "Bijvoorbeeld: 30 minuten."
+
+
+          # =================================
+          # OVER DE SALON
+          # =================================
+
+          - label: Over de salon
+            name: about
+            widget: object
+            collapsed: true
+
+            fields:
+
+              - label: Titel
+                name: title
+                widget: string
+
+              - label: Beschrijving
+                name: description
+                widget: text
+
+
+          # =================================
+          # OPENINGSTIJDEN
+          # =================================
+
+          - label: Tekst boven de openingstijden
+            name: hours_introduction
+            widget: text
+
+          - label: Openingstijden
+            name: opening_hours
+            widget: list
+            label_singular: Dag
+            summary: "{{fields.day}}"
+            required: false
+            default: []
+
+            fields:
+
+              - label: Dag
+                name: day
+                widget: string
+
+              - label: Openingstijd
+                name: hours
+                widget: string
+                hint: "Bijvoorbeeld: 09:00 - 18:00 of Gesloten"
+
+          - label: Extra tekst bij openingstijden
+            name: hours_note
+            widget: text
+            required: false
+
+
+          # =================================
+          # CONTACTGEGEVENS
+          # =================================
+
+          - label: Contactgegevens
+            name: contact
+            widget: object
+            collapsed: true
+
+            fields:
+
+              - label: Introductietekst
+                name: introduction
+                widget: text
+
+              - label: Telefoonnummer
+                name: phone
+                widget: string
+                required: false
+
+              - label: E-mailadres
+                name: email
+                widget: string
+                required: false
+
+              - label: Straat en huisnummer
+                name: address
+                widget: string
+                required: false
+
+              - label: Postcode
+                name: postal_code
+                widget: string
+                required: false
+
+              - label: Plaats
+                name: city
+                widget: string
+                required: false
+
+              - label: Google Maps-link
+                name: maps
+                widget: string
+                required: false
+
+              - label: Online boekingslink
+                name: booking_url
+                widget: string
+                required: false
+                hint: "Plak hier de officiële link naar het online boekingssysteem."
