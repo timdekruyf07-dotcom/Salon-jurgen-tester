@@ -1,20 +1,27 @@
 {
-  "introduction": "Van een frisse knipbeurt tot een verzorgde korte coupe. Ontdek de behandelingen van Salon Jurgen en kies wat bij jou past.",
+  "introduction": "Bij Salon Jurgen in Haaksbergen kun je terecht voor heren knippen en tondeusebehandelingen. Bekijk hieronder de behandelingen, behandeltijden en prijzen.",
 
   "services": [
     {
-      "name": "Heren knippen",
-      "description": "Een verzorgde coupe met aandacht voor jouw persoonlijke stijl.",
-      "price": "",
-      "duration": "",
+      "name": "Knippen Heren",
+      "description": "Een verzorgde herenknipbeurt, afgestemd op jouw wensen en persoonlijke stijl.",
+      "price": "€ 25,50",
+      "duration": "30 minuten",
       "published": true
     },
     {
-      "name": "Tondeuse knippen",
-      "description": "Voor een strakke, korte coupe met een nette afwerking.",
-      "price": "",
-      "duration": "",
+      "name": "Knippen Tondeuse",
+      "description": "Voor een nette, korte coupe met de tondeuse en een verzorgde afwerking.",
+      "price": "€ 21,00",
+      "duration": "30 minuten",
       "published": true
+    },
+    {
+      "name": "Contouren scheren",
+      "description": "Het bijwerken van de contouren. Informeer bij de salon naar de mogelijkheden en voorwaarden.",
+      "price": "€ 0,00",
+      "duration": "0 minuten",
+      "published": false
     }
   ]
 }
