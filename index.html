@@ -3,83 +3,32 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
   <meta name="theme-color" content="#171818">
 
   <meta
     name="description"
-    content="Salon Jurgen in Haaksbergen. Persoonlijke aandacht, vakmanschap en een frisse coupe."
+    content="Salon Jurgen in Haaksbergen. Ontdek onze behandelingen en maak een afspraak."
   >
 
-  <title>Salon Jurgen | Kapsalon in Haaksbergen</title>
+  <title>Home | Salon Jurgen</title>
 
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="pages.css">
+
   <script src="script.js" defer></script>
 </head>
 
-<body>
+<body data-page="home">
 
-  <!-- DEMO-MELDING -->
-
-  <div class="demo-bar">
-    Onofficieel websiteconcept · Ontwerpvoorstel voor Salon Jurgen
-  </div>
-
-
-  <!-- NAVIGATIE -->
-
-  <header class="site-header">
-
-    <div class="container nav-inner">
-
-      <a class="brand" href="index.html" aria-label="Salon Jurgen - Home">
-        <span class="brand-icon">SJ<span>.</span></span>
-
-        <span class="brand-text">
-          <strong>SALON JURGEN</strong>
-          <small>HAAR &amp; STIJL</small>
-        </span>
-      </a>
-
-
-      <button
-        class="menu-toggle"
-        type="button"
-        aria-label="Open navigatiemenu"
-        aria-expanded="false"
-        aria-controls="main-navigation"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-
-      <nav id="main-navigation" class="navigation" aria-label="Hoofdnavigatie">
-
-        <a href="#home">Home</a>
-        <a href="#behandelingen">Behandelingen</a>
-        <a href="#over-ons">Over de salon</a>
-        <a href="#openingstijden">Openingstijden</a>
-        <a href="#contact">Contact</a>
-
-        <a
-          href="#contact"
-          class="nav-booking"
-          id="nav-booking-button"
-        >
-          Maak een afspraak <span>↗</span>
-        </a>
-
-      </nav>
-
-    </div>
-
-  </header>
-
+  <div id="site-header"></div>
 
   <main id="main">
-
 
     <!-- =====================================
          HERO
@@ -92,12 +41,14 @@
         <div class="hero-content">
 
           <div class="hero-eyebrow reveal">
+
             <span class="eyebrow-line"></span>
+
             <span id="hero-eyebrow">
               WELKOM BIJ SALON JURGEN
             </span>
-          </div>
 
+          </div>
 
           <h1 class="hero-title reveal">
 
@@ -105,38 +56,43 @@
               Een goede coupe.
             </span>
 
-            <span class="hero-title-accent" id="hero-title-line2">
+            <span
+              class="hero-title-accent"
+              id="hero-title-line2"
+            >
               Een goed gevoel.
             </span>
 
           </h1>
 
-
-          <p class="hero-description reveal" id="hero-description">
+          <p
+            class="hero-description reveal"
+            id="hero-description"
+          >
             Een vertrouwd adres voor een frisse coupe.
             Bij Salon Jurgen draait het om persoonlijk
             contact, aandacht en vakmanschap.
           </p>
 
-
           <div class="hero-actions reveal">
 
             <a
-              href="#contact"
-              class="button button-primary"
-              id="hero-booking-button"
+              href="contact.html"
+              class="button button-primary booking-link"
             >
               Maak een afspraak
               <span aria-hidden="true">↗</span>
             </a>
 
-            <a href="#behandelingen" class="text-link">
-              Ontdek de behandelingen
-              <span aria-hidden="true">↓</span>
+            <a
+              href="behandelingen.html"
+              class="text-link"
+            >
+              Bekijk de behandelingen
+              <span aria-hidden="true">↗</span>
             </a>
 
           </div>
-
 
           <div class="hero-bottom reveal">
 
@@ -151,21 +107,23 @@
         </div>
 
 
-        <!-- VISUEEL: LATER TE VERVANGEN DOOR ECHTE SALONFOTO -->
+        <!-- HERO-AFBEELDING -->
 
         <div class="hero-visual reveal">
 
-          <div class="hero-art" id="hero-art">
+          <div class="hero-art">
 
             <img
               id="hero-image"
               class="hero-image"
-              src=""
               alt=""
               hidden
             >
 
-            <div class="hero-art-placeholder" id="hero-art-placeholder">
+            <div
+              class="hero-art-placeholder"
+              id="hero-art-placeholder"
+            >
 
               <span class="hero-art-circle"></span>
 
@@ -187,7 +145,6 @@
 
           </div>
 
-
           <div class="hero-stamp" aria-hidden="true">
 
             <span>SALON</span>
@@ -202,7 +159,6 @@
 
       </div>
 
-
       <div class="hero-side-label" aria-hidden="true">
         STYLE IS PERSONAL — SALON JURGEN
       </div>
@@ -210,9 +166,8 @@
     </section>
 
 
-
     <!-- =====================================
-         INTRO / USP
+         KORTE INTRODUCTIE
     ====================================== -->
 
     <section class="intro-strip">
@@ -239,12 +194,11 @@
     </section>
 
 
-
     <!-- =====================================
-         BEHANDELINGEN
+         BEHANDELINGEN PREVIEW
     ====================================== -->
 
-    <section class="section services-section" id="behandelingen">
+    <section class="section services-section">
 
       <div class="container">
 
@@ -253,28 +207,28 @@
           <div>
 
             <span class="section-label">
-              01 / WAT WE DOEN
+              01 / BEHANDELINGEN
             </span>
 
             <h2>
-              Goed haar begint<br>
-              <em>met aandacht.</em>
+              Een coupe die<br>
+              <em>bij jou past.</em>
             </h2>
 
           </div>
 
-          <p id="services-introduction">
-            Van een frisse knipbeurt tot een
-            verzorgde korte coupe. Ontdek onze
-            behandelingen en kies wat bij jou past.
+          <p>
+            Ontdek de behandelingen van Salon Jurgen
+            en kies wat bij jouw haar en wensen past.
           </p>
 
         </div>
 
 
-        <div class="services-grid" id="services-grid">
-
-          <!-- De kaarten worden uit home.json geladen. -->
+        <div
+          class="services-grid"
+          id="home-services-grid"
+        >
 
           <article class="service-card">
 
@@ -285,6 +239,7 @@
 
             <div>
               <h3>Heren knippen</h3>
+
               <p>
                 Een verzorgde coupe met aandacht
                 voor jouw persoonlijke stijl.
@@ -308,9 +263,10 @@
 
             <div>
               <h3>Tondeuse knippen</h3>
+
               <p>
-                Voor een strakke, korte coupe
-                met een nette afwerking.
+                Een strakke, korte coupe met
+                een nette afwerking.
               </p>
             </div>
 
@@ -324,15 +280,17 @@
         </div>
 
 
-        <div class="services-footer reveal">
+        <div class="section-bottom-link reveal">
 
           <p>
-            Een behandeling boeken?
-            Neem gerust contact op.
+            Benieuwd naar alle mogelijkheden?
           </p>
 
-          <a href="#contact" class="inline-link">
-            Naar contact <span>↗</span>
+          <a
+            href="behandelingen.html"
+            class="inline-link"
+          >
+            Bekijk alle behandelingen ↗
           </a>
 
         </div>
@@ -342,12 +300,11 @@
     </section>
 
 
-
     <!-- =====================================
-         OVER DE SALON
+         OVER DE SALON PREVIEW
     ====================================== -->
 
-    <section class="about-section" id="over-ons">
+    <section class="about-section">
 
       <div class="container about-layout">
 
@@ -365,12 +322,13 @@
 
           </div>
 
-
           <div class="about-label">
 
             <span>DE SALON</span>
 
-            <strong>Salon<br>Jurgen.</strong>
+            <strong>
+              Salon<br>Jurgen.
+            </strong>
 
           </div>
 
@@ -380,25 +338,27 @@
         <div class="about-content reveal">
 
           <span class="section-label">
-            02 / OVER ONS
+            02 / OVER DE SALON
           </span>
 
-          <h2 id="about-title">
+          <h2>
             Meer dan alleen<br>
             <em>een knipbeurt.</em>
           </h2>
 
           <div class="about-divider"></div>
 
-          <p id="about-description">
-            Een bezoek aan de kapper moet prettig
-            en ontspannen zijn. Bij Salon Jurgen
-            staat een persoonlijke benadering
-            centraal, met aandacht voor jouw wensen.
+          <p id="home-about-description">
+            Bij Salon Jurgen staat persoonlijke
+            aandacht centraal. Een bezoek aan
+            de kapper moet prettig en ontspannen zijn.
           </p>
 
-          <a href="#contact" class="button button-outline">
-            Neem contact op
+          <a
+            href="over-ons.html"
+            class="button button-outline"
+          >
+            Ontdek onze salon
             <span aria-hidden="true">↗</span>
           </a>
 
@@ -409,178 +369,49 @@
     </section>
 
 
-
     <!-- =====================================
-         OPENINGSTIJDEN
+         AFSPRAAK MAKEN
     ====================================== -->
 
-    <section class="section hours-section" id="openingstijden">
+    <section class="contact-section home-contact-section">
 
-      <div class="container hours-layout">
+      <div class="container home-cta-layout">
 
-        <div class="hours-intro reveal">
-
-          <span class="section-label">
-            03 / WANNEER JE WELKOM BENT
-          </span>
-
-          <h2>
-            Tijd voor<br>
-            <em>een nieuwe look?</em>
-          </h2>
-
-          <p id="hours-introduction">
-            Bekijk onze openingstijden of
-            neem contact op voor het maken
-            van een afspraak.
-          </p>
-
-          <div class="hours-decoration">
-            <span>OPEN</span>
-            <strong>↗</strong>
-          </div>
-
-        </div>
-
-
-        <div class="hours-card reveal">
-
-          <div class="hours-card-heading">
-
-            <div>
-              <span>BEZOEK DE SALON</span>
-              <h3>Openingstijden</h3>
-            </div>
-
-            <span class="hours-heading-icon">✳</span>
-
-          </div>
-
-
-          <div class="hours-list" id="hours-list">
-
-            <p class="hours-placeholder">
-              Openingstijden worden binnenkort toegevoegd.
-            </p>
-
-          </div>
-
-
-          <p class="hours-note" id="hours-note">
-            De openingstijden worden nog gecontroleerd.
-            Neem voor de zekerheid contact op.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- =====================================
-         CONTACT
-    ====================================== -->
-
-    <section class="contact-section" id="contact">
-
-      <div class="container contact-layout">
-
-        <div class="contact-intro reveal">
+        <div class="reveal">
 
           <span class="section-label light-label">
-            04 / CONTACT
+            03 / JOUW AFSPRAAK
           </span>
 
           <h2>
-            Jouw volgende<br>
-            <em>coupe begint hier.</em>
+            Tijd voor een<br>
+            <em>frisse coupe?</em>
           </h2>
 
-          <p id="contact-introduction">
-            Zin in een nieuwe coupe of een vraag
-            over een behandeling? Neem contact op
-            met Salon Jurgen.
+          <p>
+            Bekijk onze beschikbaarheid of neem
+            contact op met Salon Jurgen.
           </p>
-
-
-          <div class="contact-buttons">
-
-            <a
-              href="tel:0535723756"
-              class="button button-light"
-              id="contact-phone-button"
-            >
-              Bel de salon
-              <span aria-hidden="true">↗</span>
-            </a>
-
-            <a
-              href="#contact"
-              class="button button-outline-light"
-              id="contact-booking-button"
-              hidden
-            >
-              Online afspraak
-              <span aria-hidden="true">↗</span>
-            </a>
-
-          </div>
 
         </div>
 
+        <div class="home-cta-actions reveal">
 
-        <div class="contact-details reveal">
+          <a
+            href="contact.html"
+            class="button button-light booking-link"
+          >
+            Maak een afspraak
+            <span aria-hidden="true">↗</span>
+          </a>
 
-          <div class="contact-detail-row">
-
-            <span>ADRES</span>
-
-            <p id="contact-address">
-              Jonkheer von Heijdenstraat 23<br>
-              7481 EC Haaksbergen
-            </p>
-
-          </div>
-
-
-          <div class="contact-detail-row">
-
-            <span>TELEFOON</span>
-
-            <a href="tel:0535723756" id="contact-phone">
-              053 572 3756
-            </a>
-
-          </div>
-
-
-          <div class="contact-detail-row">
-
-            <span>E-MAIL</span>
-
-            <a href="mailto:info@salonjurgen.nl" id="contact-email">
-              info@salonjurgen.nl
-            </a>
-
-          </div>
-
-
-          <div class="contact-detail-row">
-
-            <span>LOCATIE</span>
-
-            <a
-              id="contact-maps"
-              href="https://www.google.com/maps/search/?api=1&amp;query=Jonkheer+von+Heijdenstraat+23+Haaksbergen"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Bekijk op Google Maps ↗
-            </a>
-
-          </div>
+          <a
+            href="openingstijden.html"
+            class="button button-outline-light"
+          >
+            Openingstijden
+            <span aria-hidden="true">↗</span>
+          </a>
 
         </div>
 
@@ -590,45 +421,7 @@
 
   </main>
 
-
-
-  <!-- =====================================
-       FOOTER
-  ====================================== -->
-
-  <footer class="site-footer">
-
-    <div class="container">
-
-      <div class="footer-top">
-
-        <a class="footer-brand" href="#home">
-          SALON JURGEN<span>.</span>
-        </a>
-
-        <a href="#home" class="back-top">
-          Terug naar boven ↑
-        </a>
-
-      </div>
-
-
-      <div class="footer-bottom">
-
-        <p>
-          © <span id="current-year"></span> Salon Jurgen
-          · Onofficieel ontwerpconcept
-        </p>
-
-        <p>
-          Websitevoorstel — geen officiële website van de salon.
-        </p>
-
-      </div>
-
-    </div>
-
-  </footer>
+  <div id="site-footer"></div>
 
 </body>
 </html>
