@@ -1,31 +1,40 @@
 /* ==========================================
    SALON JURGEN
    WEBSITE JAVASCRIPT
+   MEERDERE PAGINA'S + SVELTIA CMS
 ========================================== */
 
 (function () {
   "use strict";
 
-  const DATA_URL = "content/home.json";
+  const page = document.body.dataset.page || "home";
+
+  const DATA = {
+    home: "content/home.json",
+    behandelingen: "content/behandelingen.json",
+    overOns: "content/over-ons.json",
+    openingstijden: "content/openingstijden.json",
+    contact: "content/contact.json"
+  };
 
 
   /* ========================================
      HULPFUNCTIES
   ======================================== */
 
-  function getElement(id) {
+  function byId(id) {
     return document.getElementById(id);
   }
 
   function setText(id, value) {
-    const element = getElement(id);
+    const element = byId(id);
 
     if (element && typeof value === "string") {
       element.textContent = value;
     }
   }
 
-  function createElement(tag, className, text) {
+  function makeElement(tag, className, text) {
     const element = document.createElement(tag);
 
     if (className) {
@@ -39,12 +48,7 @@
     return element;
   }
 
-
-  /* ========================================
-     VEILIGE URL'S
-  ======================================== */
-
-  function getSafeUrl(value) {
+  function safeWebUrl(value) {
     if (typeof value !== "string" || !value.trim()) {
       return "";
     }
@@ -52,48 +56,13 @@
     try {
       const url = new URL(value.trim());
 
-      if (url.protocol === "https:") {
-        return url.href;
-      }
-    } catch (error) {
+      return url.protocol === "https:" ? url.href : "";
+    } catch {
       return "";
     }
-
-    return "";
   }
 
-  function getImageUrl(value) {
-    if (typeof value !== "string" || !value.trim()) {
-      return "";
-    }
-
-    let path = value.trim();
-
-    if (/^https:\/\//i.test(path)) {
-      return path;
-    }
-
-    if (/^[a-z][a-z0-9+.-]*:/i.test(path) || path.startsWith("//")) {
-      return "";
-    }
-
-    const siteBase = new URL(".", document.baseURI);
-    const siteFolder = siteBase.pathname.replace(/\/$/, "");
-
-    if (siteFolder && path.startsWith(siteFolder + "/")) {
-      path = path.slice(siteFolder.length);
-    }
-
-    path = path.replace(/^\/+/, "");
-
-    if (path.split("/").includes("..")) {
-      return "";
-    }
-
-    return new URL(path, siteBase).href;
-  }
-
-  function getPhoneUrl(value) {
+  function safePhoneUrl(value) {
     if (typeof value !== "string") {
       return "";
     }
@@ -105,7 +74,7 @@
       : "";
   }
 
-  function getEmailUrl(value) {
+  function safeEmailUrl(value) {
     if (
       typeof value !== "string" ||
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())
@@ -116,33 +85,180 @@
     return "mailto:" + value.trim();
   }
 
-
-  /* ========================================
-     MOBIEL MENU
-  ======================================== */
-
-  const menuButton = document.querySelector(".menu-toggle");
-  const navigation = getElement("main-navigation");
-
-  if (menuButton && navigation) {
-    function closeMenu() {
-      navigation.classList.remove("open");
-      document.body.classList.remove("menu-open");
-      menuButton.setAttribute("aria-expanded", "false");
+  function imageUrl(value) {
+    if (typeof value !== "string" || !value.trim()) {
+      return "";
     }
 
-    menuButton.addEventListener("click", function () {
-      const isOpen = navigation.classList.toggle("open");
+    let path = value.trim();
 
-      document.body.classList.toggle("menu-open", isOpen);
+    if (/^https:\/\//i.test(path)) {
+      return path;
+    }
 
-      menuButton.setAttribute(
-        "aria-expanded",
-        String(isOpen)
-      );
+    if (
+      /^[a-z][a-z0-9+.-]*:/i.test(path) ||
+      path.startsWith("//")
+    ) {
+      return "";
+    }
+
+    const base = new URL(".", document.baseURI);
+    const folder = base.pathname.replace(/\/$/, "");
+
+    if (folder && path.startsWith(folder + "/")) {
+      path = path.slice(folder.length);
+    }
+
+    path = path.replace(/^\/+/, "");
+
+    if (path.split("/").includes("..")) {
+      return "";
+    }
+
+    return new URL(path, base).href;
+  }
+
+
+  /* ========================================
+     GEDEELDE HEADER
+  ======================================== */
+
+  function renderHeader() {
+    const container = byId("site-header");
+
+    if (!container) {
+      return;
+    }
+
+    const links = [
+      { label: "Home", href: "index.html", key: "home" },
+      {
+        label: "Behandelingen",
+        href: "behandelingen.html",
+        key: "behandelingen"
+      },
+      {
+        label: "Over de salon",
+        href: "over-ons.html",
+        key: "over-ons"
+      },
+      {
+        label: "Openingstijden",
+        href: "openingstijden.html",
+        key: "openingstijden"
+      },
+      {
+        label: "Contact",
+        href: "contact.html",
+        key: "contact"
+      }
+    ];
+
+    const demo = makeElement(
+      "div",
+      "demo-bar",
+      "Onofficieel websiteconcept · Ontwerpvoorstel voor Salon Jurgen"
+    );
+
+    const header = makeElement("header", "site-header");
+
+    const inner = makeElement("div", "container nav-inner");
+
+    const brand = makeElement("a", "brand");
+    brand.href = "index.html";
+    brand.setAttribute("aria-label", "Salon Jurgen - Home");
+
+    const icon = makeElement("span", "brand-icon");
+    icon.appendChild(document.createTextNode("SJ"));
+
+    icon.appendChild(
+      makeElement("span", "", ".")
+    );
+
+    const brandText = makeElement("span", "brand-text");
+
+    brandText.appendChild(
+      makeElement("strong", "", "SALON JURGEN")
+    );
+
+    brandText.appendChild(
+      makeElement("small", "", "HAAR & STIJL")
+    );
+
+    brand.append(icon, brandText);
+
+
+    /* MOBIELE MENUKNOP */
+
+    const toggle = makeElement("button", "menu-toggle");
+
+    toggle.type = "button";
+    toggle.setAttribute("aria-label", "Open navigatiemenu");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-controls", "main-navigation");
+
+    for (let i = 0; i < 3; i++) {
+      toggle.appendChild(document.createElement("span"));
+    }
+
+
+    /* NAVIGATIE */
+
+    const nav = makeElement("nav", "navigation");
+
+    nav.id = "main-navigation";
+    nav.setAttribute("aria-label", "Hoofdnavigatie");
+
+    links.forEach(function (item) {
+      const link = makeElement("a", "", item.label);
+
+      link.href = item.href;
+
+      if (item.key === page) {
+        link.classList.add("active");
+        link.setAttribute("aria-current", "page");
+      }
+
+      nav.appendChild(link);
     });
 
-    navigation.querySelectorAll("a").forEach(function (link) {
+    const booking = makeElement("a", "nav-booking booking-link");
+
+    booking.href = "contact.html";
+    booking.appendChild(
+      document.createTextNode("Maak een afspraak ")
+    );
+
+    booking.appendChild(
+      makeElement("span", "", "↗")
+    );
+
+    nav.appendChild(booking);
+
+    inner.append(brand, toggle, nav);
+
+    header.appendChild(inner);
+
+    container.replaceChildren(demo, header);
+
+
+    /* MOBIEL MENU */
+
+    function closeMenu() {
+      nav.classList.remove("open");
+      document.body.classList.remove("menu-open");
+      toggle.setAttribute("aria-expanded", "false");
+    }
+
+    toggle.addEventListener("click", function () {
+      const opened = nav.classList.toggle("open");
+
+      document.body.classList.toggle("menu-open", opened);
+      toggle.setAttribute("aria-expanded", String(opened));
+    });
+
+    nav.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", closeMenu);
     });
 
@@ -151,6 +267,74 @@
         closeMenu();
       }
     });
+  }
+
+
+  /* ========================================
+     GEDEELDE FOOTER
+  ======================================== */
+
+  function renderFooter() {
+    const container = byId("site-footer");
+
+    if (!container) {
+      return;
+    }
+
+    const footer = makeElement("footer", "site-footer");
+
+    const inner = makeElement("div", "container");
+
+    const top = makeElement("div", "footer-top");
+
+    const brand = makeElement(
+      "a",
+      "footer-brand",
+      "SALON JURGEN"
+    );
+
+    brand.href = "index.html";
+
+    brand.appendChild(
+      makeElement("span", "", ".")
+    );
+
+    const back = makeElement(
+      "a",
+      "back-top",
+      "Terug naar boven ↑"
+    );
+
+    back.href = "#main";
+
+    top.append(brand, back);
+
+
+    const bottom = makeElement("div", "footer-bottom");
+
+    bottom.appendChild(
+      makeElement(
+        "p",
+        "",
+        "© " +
+        new Date().getFullYear() +
+        " Salon Jurgen · Onofficieel ontwerpconcept"
+      )
+    );
+
+    bottom.appendChild(
+      makeElement(
+        "p",
+        "",
+        "Websitevoorstel — geen officiële website van de salon."
+      )
+    );
+
+    inner.append(top, bottom);
+
+    footer.appendChild(inner);
+
+    container.replaceChildren(footer);
   }
 
 
@@ -194,47 +378,19 @@
 
 
   /* ========================================
-     HERO
+     JSON OPHALEN
   ======================================== */
 
-  function renderHero(hero) {
-    if (!hero || typeof hero !== "object") {
-      return;
+  async function loadJson(url) {
+    const response = await fetch(url, {
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error(url + ": " + response.status);
     }
 
-    setText("hero-eyebrow", hero.eyebrow);
-    setText("hero-title-line1", hero.title_line1);
-    setText("hero-title-line2", hero.title_line2);
-    setText("hero-description", hero.description);
-
-    const image = getElement("hero-image");
-    const placeholder = getElement("hero-art-placeholder");
-
-    if (!image || !placeholder) {
-      return;
-    }
-
-    const imageUrl = getImageUrl(hero.image);
-
-    if (!imageUrl) {
-      image.hidden = true;
-      placeholder.hidden = false;
-      return;
-    }
-
-    image.alt = hero.image_alt || "Foto van Salon Jurgen";
-
-    image.onload = function () {
-      image.hidden = false;
-      placeholder.hidden = true;
-    };
-
-    image.onerror = function () {
-      image.hidden = true;
-      placeholder.hidden = false;
-    };
-
-    image.src = imageUrl;
+    return response.json();
   }
 
 
@@ -242,30 +398,32 @@
      BEHANDELINGEN
   ======================================== */
 
-  function renderServices(services) {
-    if (!Array.isArray(services)) {
-      return;
-    }
+  function renderServices(services, containerId, limit) {
+    const grid = byId(containerId);
 
-    const grid = getElement("services-grid");
-
-    if (!grid) {
+    if (!grid || !Array.isArray(services)) {
       return;
     }
 
     const fragment = document.createDocumentFragment();
 
-    services.forEach(function (service, index) {
-      if (!service || typeof service !== "object") {
-        return;
-      }
+    const visibleServices = services.filter(function (service) {
+      return service &&
+        typeof service === "object" &&
+        service.published !== false;
+    });
 
-      const card = createElement("article", "service-card");
+    const selected = typeof limit === "number"
+      ? visibleServices.slice(0, limit)
+      : visibleServices;
 
-      const top = createElement("div", "service-card-top");
+    selected.forEach(function (service, index) {
+      const card = makeElement("article", "service-card");
+
+      const top = makeElement("div", "service-card-top");
 
       top.appendChild(
-        createElement(
+        makeElement(
           "span",
           "",
           String(index + 1).padStart(2, "0")
@@ -273,29 +431,23 @@
       );
 
       top.appendChild(
-        createElement("span", "service-arrow", "↗")
+        makeElement("span", "service-arrow", "↗")
       );
 
-      card.appendChild(top);
+      const body = document.createElement("div");
 
-
-      const content = document.createElement("div");
-
-      content.appendChild(
-        createElement("h3", "", service.name || "Behandeling")
+      body.appendChild(
+        makeElement("h3", "", service.name || "Behandeling")
       );
 
-      content.appendChild(
-        createElement("p", "", service.description || "")
+      body.appendChild(
+        makeElement("p", "", service.description || "")
       );
 
-      card.appendChild(content);
-
-
-      const bottom = createElement("div", "service-card-bottom");
+      const bottom = makeElement("div", "service-card-bottom");
 
       bottom.appendChild(
-        createElement(
+        makeElement(
           "span",
           "",
           service.price || "Prijs op aanvraag"
@@ -303,43 +455,29 @@
       );
 
       bottom.appendChild(
-        createElement(
+        makeElement(
           "span",
           "",
           service.duration || "BEHANDELING"
         )
       );
 
-      card.appendChild(bottom);
+      card.append(top, body, bottom);
 
       fragment.appendChild(card);
     });
 
-    if (fragment.childNodes.length) {
-      grid.replaceChildren(fragment);
-    } else {
-      grid.replaceChildren(
-        createElement(
+    if (!selected.length) {
+      fragment.appendChild(
+        makeElement(
           "p",
-          "",
+          "services-empty",
           "Er zijn momenteel geen behandelingen vermeld."
         )
       );
     }
-  }
 
-
-  /* ========================================
-     OVER DE SALON
-  ======================================== */
-
-  function renderAbout(about) {
-    if (!about || typeof about !== "object") {
-      return;
-    }
-
-    setText("about-title", about.title);
-    setText("about-description", about.description);
+    grid.replaceChildren(fragment);
   }
 
 
@@ -347,14 +485,10 @@
      OPENINGSTIJDEN
   ======================================== */
 
-  function renderHours(hours) {
-    if (!Array.isArray(hours)) {
-      return;
-    }
+  function renderOpeningHours(hours) {
+    const list = byId("hours-list");
 
-    const list = getElement("hours-list");
-
-    if (!list) {
+    if (!list || !Array.isArray(hours)) {
       return;
     }
 
@@ -365,14 +499,18 @@
         return;
       }
 
-      const row = createElement("div", "hours-row");
+      if (!item.day && !item.hours) {
+        return;
+      }
+
+      const row = makeElement("div", "hours-row");
 
       row.appendChild(
-        createElement("strong", "", item.day || "")
+        makeElement("strong", "", item.day || "")
       );
 
       row.appendChild(
-        createElement("span", "", item.hours || "")
+        makeElement("span", "", item.hours || "")
       );
 
       fragment.appendChild(row);
@@ -380,7 +518,7 @@
 
     if (!fragment.childNodes.length) {
       fragment.appendChild(
-        createElement(
+        makeElement(
           "p",
           "hours-placeholder",
           "Openingstijden worden binnenkort toegevoegd."
@@ -393,198 +531,427 @@
 
 
   /* ========================================
-     CONTACTGEGEVENS
+     REVIEWS
   ======================================== */
 
-  function renderContact(contact) {
-    if (!contact || typeof contact !== "object") {
+  function renderReviews(reviews) {
+    const grid = byId("reviews-grid");
+
+    if (!grid || !Array.isArray(reviews)) {
       return;
     }
 
-    setText("contact-introduction", contact.introduction);
+    const fragment = document.createDocumentFragment();
 
-    const address = getElement("contact-address");
+    const visible = reviews.filter(function (review) {
+      return review &&
+        typeof review === "object" &&
+        review.published !== false &&
+        typeof review.text === "string" &&
+        review.text.trim();
+    });
+
+    visible.forEach(function (review) {
+      const card = makeElement("article", "review-page-card");
+
+      card.appendChild(
+        makeElement("span", "review-page-quote", "”")
+      );
+
+      card.appendChild(
+        makeElement("p", "", review.text)
+      );
+
+      const author = makeElement(
+        "div",
+        "review-page-author",
+        review.name || "Klant"
+      );
+
+      card.appendChild(author);
+
+      fragment.appendChild(card);
+    });
+
+    if (!visible.length) {
+      const empty = makeElement("div", "reviews-empty");
+
+      empty.appendChild(
+        makeElement("span", "", "”")
+      );
+
+      empty.appendChild(
+        makeElement("h3", "", "Klantbeoordelingen")
+      );
+
+      empty.appendChild(
+        makeElement(
+          "p",
+          "",
+          "Hier verschijnen echte klantreviews zodra deze zijn toegevoegd."
+        )
+      );
+
+      fragment.appendChild(empty);
+    }
+
+    grid.replaceChildren(fragment);
+  }
+
+
+  /* ========================================
+     AFBEELDINGEN
+  ======================================== */
+
+  function loadOptionalImage(imageId, placeholderId, path, alt) {
+    const image = byId(imageId);
+    const placeholder = byId(placeholderId);
+
+    if (!image || !placeholder) {
+      return;
+    }
+
+    const url = imageUrl(path);
+
+    if (!url) {
+      image.hidden = true;
+      placeholder.hidden = false;
+      return;
+    }
+
+    image.alt = alt || "Foto van Salon Jurgen";
+
+    image.onload = function () {
+      image.hidden = false;
+      placeholder.hidden = true;
+    };
+
+    image.onerror = function () {
+      image.hidden = true;
+      placeholder.hidden = false;
+    };
+
+    image.src = url;
+  }
+
+
+  /* ========================================
+     CONTACTGEGEVENS
+  ======================================== */
+
+  function renderContact(data) {
+    if (!data || typeof data !== "object") {
+      return;
+    }
+
+    setText("contact-page-introduction", data.introduction);
+    setText("contact-extra-information", data.extra_information);
+
+    const address = byId("contact-address");
 
     if (address) {
-      const street = contact.address || "";
-      const postal = contact.postal_code || "";
-      const city = contact.city || "";
+      const location = [
+        data.postal_code || "",
+        data.city || ""
+      ].filter(Boolean).join(" ");
 
-      const location = [postal, city]
-        .filter(Boolean)
-        .join(" ");
-
-      address.textContent = [street, location]
-        .filter(Boolean)
-        .join("\n");
-
-      address.style.whiteSpace = "pre-line";
+      address.textContent = [
+        data.address || "",
+        location
+      ].filter(Boolean).join("\n");
     }
 
 
     /* TELEFOON */
 
-    const phone = getElement("contact-phone");
-    const phoneButton = getElement("contact-phone-button");
+    const phone = byId("contact-phone");
 
-    if (phone && phoneButton) {
-      const phoneUrl = getPhoneUrl(contact.phone);
+    if (phone) {
+      const url = safePhoneUrl(data.phone);
 
-      if (phoneUrl) {
-        phone.href = phoneUrl;
-        phone.textContent = contact.phone;
-        phone.hidden = false;
-
-        phoneButton.href = phoneUrl;
-        phoneButton.hidden = false;
+      if (url) {
+        phone.href = url;
+        phone.textContent = data.phone;
       } else {
         phone.removeAttribute("href");
-        phone.textContent = "Nog niet ingevuld";
-        phoneButton.hidden = true;
+        phone.textContent = "Nog niet beschikbaar";
       }
     }
 
 
     /* E-MAIL */
 
-    const email = getElement("contact-email");
+    const email = byId("contact-email");
 
     if (email) {
-      const emailUrl = getEmailUrl(contact.email);
+      const url = safeEmailUrl(data.email);
 
-      if (emailUrl) {
-        email.href = emailUrl;
-        email.textContent = contact.email;
-        email.hidden = false;
+      if (url) {
+        email.href = url;
+        email.textContent = data.email;
       } else {
         email.removeAttribute("href");
-        email.textContent = "Nog niet ingevuld";
+        email.textContent = "Nog niet beschikbaar";
       }
     }
 
 
     /* GOOGLE MAPS */
 
-    const maps = getElement("contact-maps");
+    const maps = byId("contact-maps");
 
     if (maps) {
-      const mapsUrl = getSafeUrl(contact.maps);
+      const url = safeWebUrl(data.maps);
 
-      if (mapsUrl) {
-        maps.href = mapsUrl;
+      if (url) {
+        maps.href = url;
         maps.hidden = false;
       } else {
-        maps.hidden = true;
         maps.removeAttribute("href");
+        maps.hidden = true;
       }
     }
 
 
-    /* ONLINE BOEKEN */
+    /* BELKNOP VERBERGEN WANNEER NODIG */
 
-    const bookingUrl = getSafeUrl(contact.booking_url);
+    const phoneButton = byId("contact-phone-button");
 
-    const heroBooking = getElement("hero-booking-button");
-    const navBooking = getElement("nav-booking-button");
-    const contactBooking = getElement("contact-booking-button");
+    if (phoneButton) {
+      const url = safePhoneUrl(data.phone);
 
-    [heroBooking, navBooking, contactBooking].forEach(
-      function (button) {
-        if (!button) {
-          return;
-        }
+      if (url) {
+        phoneButton.href = url;
+        phoneButton.hidden = false;
+      } else {
+        phoneButton.hidden = true;
+      }
+    }
 
+
+    /* AFSPRAAKKNOPPEN OP ALLE PAGINA'S */
+
+    const bookingUrl = safeWebUrl(data.booking_url);
+
+    document.querySelectorAll(".booking-link").forEach(
+      function (link) {
         if (bookingUrl) {
-          button.href = bookingUrl;
-          button.target = "_blank";
-          button.rel = "noopener noreferrer";
+          link.href = bookingUrl;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
         } else {
-          button.href = "#contact";
-          button.removeAttribute("target");
-          button.removeAttribute("rel");
+          link.href = page === "contact"
+            ? "#contactgegevens"
+            : "contact.html";
+
+          link.removeAttribute("target");
+          link.removeAttribute("rel");
         }
       }
     );
-
-    if (contactBooking) {
-      contactBooking.hidden = !bookingUrl;
-    }
   }
 
 
   /* ========================================
-     ALLE CMS-GEGEVENS TONEN
+     HOMEPAGE
   ======================================== */
 
-  function renderPage(data) {
-    if (!data || typeof data !== "object") {
-      return;
-    }
+  async function loadHome() {
+    const results = await Promise.allSettled([
+      loadJson(DATA.home),
+      loadJson(DATA.behandelingen),
+      loadJson(DATA.overOns)
+    ]);
 
-    renderHero(data.hero);
+    if (results[0].status === "fulfilled") {
+      const home = results[0].value;
 
-    setText(
-      "services-introduction",
-      data.services_introduction
-    );
+      if (home.hero) {
+        setText("hero-eyebrow", home.hero.eyebrow);
+        setText("hero-title-line1", home.hero.title_line1);
+        setText("hero-title-line2", home.hero.title_line2);
+        setText("hero-description", home.hero.description);
 
-    renderServices(data.services);
-
-    renderAbout(data.about);
-
-    setText(
-      "hours-introduction",
-      data.hours_introduction
-    );
-
-    setText("hours-note", data.hours_note);
-
-    renderHours(data.opening_hours);
-
-    renderContact(data.contact);
-  }
-
-
-  /* ========================================
-     JSON-BESTAND LADEN
-  ======================================== */
-
-  async function loadContent() {
-    try {
-      const response = await fetch(DATA_URL, {
-        cache: "no-store"
-      });
-
-      if (!response.ok) {
-        throw new Error(
-          "Kon CMS-gegevens niet laden: " + response.status
+        loadOptionalImage(
+          "hero-image",
+          "hero-art-placeholder",
+          home.hero.image,
+          home.hero.image_alt
         );
       }
+    }
 
-      const data = await response.json();
+    if (results[1].status === "fulfilled") {
+      renderServices(
+        results[1].value.services,
+        "home-services-grid",
+        2
+      );
+    }
 
-      renderPage(data);
-
-    } catch (error) {
-      console.error("Salon Jurgen CMS:", error);
-
-      // De voorbeeldinhoud in index.html
-      // blijft zichtbaar als het laden mislukt.
+    if (results[2].status === "fulfilled") {
+      setText(
+        "home-about-description",
+        results[2].value.description
+      );
     }
   }
 
 
   /* ========================================
-     STARTEN
+     PAGINA BEHANDELINGEN
   ======================================== */
 
-  const year = getElement("current-year");
+  async function loadTreatments() {
+    const data = await loadJson(DATA.behandelingen);
 
-  if (year) {
-    year.textContent = String(new Date().getFullYear());
+    setText(
+      "treatments-introduction",
+      data.introduction
+    );
+
+    renderServices(
+      data.services,
+      "treatments-grid"
+    );
   }
 
-  initializeAnimations();
-  loadContent();
+
+  /* ========================================
+     PAGINA OVER DE SALON
+  ======================================== */
+
+  async function loadAbout() {
+    const data = await loadJson(DATA.overOns);
+
+    setText(
+      "about-page-introduction",
+      data.introduction
+    );
+
+    setText(
+      "about-page-title",
+      data.title
+    );
+
+    setText(
+      "about-page-description",
+      data.description
+    );
+
+    setText(
+      "reviews-introduction",
+      data.reviews_introduction
+    );
+
+    loadOptionalImage(
+      "about-photo",
+      "about-photo-placeholder",
+      data.image,
+      data.image_alt
+    );
+
+    renderReviews(data.reviews);
+  }
+
+
+  /* ========================================
+     PAGINA OPENINGSTIJDEN
+  ======================================== */
+
+  async function loadHours() {
+    const data = await loadJson(DATA.openingstijden);
+
+    setText(
+      "hours-page-introduction",
+      data.introduction
+    );
+
+    setText(
+      "hours-note",
+      data.note
+    );
+
+    setText(
+      "hours-extra-information",
+      data.extra_information
+    );
+
+    renderOpeningHours(data.opening_hours);
+  }
+
+
+  /* ========================================
+     PAGINA CONTACT
+  ======================================== */
+
+  async function loadContact() {
+    const data = await loadJson(DATA.contact);
+
+    renderContact(data);
+  }
+
+
+  /* ========================================
+     BOEKINGSLINK OP ELKE PAGINA
+  ======================================== */
+
+  async function loadBookingLink() {
+    const data = await loadJson(DATA.contact);
+
+    renderContact(data);
+  }
+
+
+  /* ========================================
+     WEBSITE STARTEN
+  ======================================== */
+
+  async function start() {
+    renderHeader();
+    renderFooter();
+    initializeAnimations();
+
+    const tasks = [];
+
+    switch (page) {
+      case "home":
+        tasks.push(loadHome());
+        break;
+
+      case "behandelingen":
+        tasks.push(loadTreatments());
+        break;
+
+      case "over-ons":
+        tasks.push(loadAbout());
+        break;
+
+      case "openingstijden":
+        tasks.push(loadHours());
+        break;
+
+      case "contact":
+        tasks.push(loadContact());
+        break;
+    }
+
+    if (page !== "contact") {
+      tasks.push(loadBookingLink());
+    }
+
+    const results = await Promise.allSettled(tasks);
+
+    results.forEach(function (result) {
+      if (result.status === "rejected") {
+        console.error(
+          "Salon Jurgen - gegevens laden:",
+          result.reason
+        );
+      }
+    });
+  }
+
+  start();
 
 })();
