@@ -1,9 +1,38 @@
 {
-  "introduction": "Bekijk wanneer Salon Jurgen geopend is en plan een moment dat jou goed uitkomt.",
+  "introduction": "Bekijk de vermelde openingstijden van Salon Jurgen in Haaksbergen. Wil je zeker weten dat er een plekje beschikbaar is? Maak dan vooraf een afspraak.",
 
-  "opening_hours": [],
+  "opening_hours": [
+    {
+      "day": "Maandag",
+      "hours": "Gesloten"
+    },
+    {
+      "day": "Dinsdag",
+      "hours": "08:30 - 21:00"
+    },
+    {
+      "day": "Woensdag",
+      "hours": "08:30 - 21:00"
+    },
+    {
+      "day": "Donderdag",
+      "hours": "08:30 - 21:00"
+    },
+    {
+      "day": "Vrijdag",
+      "hours": "08:30 - 21:00"
+    },
+    {
+      "day": "Zaterdag",
+      "hours": "08:00 - 10:00 (alleen telefonisch boeken)"
+    },
+    {
+      "day": "Zondag",
+      "hours": "Gesloten"
+    }
+  ],
 
-  "note": "De openingstijden worden nog gecontroleerd. Neem voor de zekerheid contact op.",
+  "note": "Deze openingstijden zijn overgenomen van de oorspronkelijke homepage en moeten nog door de salon worden bevestigd.",
 
-  "extra_information": "Wil je zeker weten dat er een plek beschikbaar is? Maak dan vooraf een afspraak met de salon."
+  "extra_information": "Een afspraak maken kan telefonisch of via het online boekingssysteem. Voor zaterdag is volgens de oorspronkelijke website alleen telefonisch reserveren mogelijk.\n\nKun je online geen geschikt tijdstip vinden? Neem dan telefonisch contact op met de salon om de mogelijkheden te bespreken."
 }
