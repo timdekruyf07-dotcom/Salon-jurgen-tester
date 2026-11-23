@@ -6,44 +6,5 @@
     "description": "Een vertrouwd adres voor een frisse coupe. Bij Salon Jurgen draait het om persoonlijk contact, aandacht en vakmanschap.",
     "image": "",
     "image_alt": ""
-  },
-
-  "services_introduction": "Van een frisse knipbeurt tot een verzorgde korte coupe. Ontdek onze behandelingen en kies wat bij jou past.",
-
-  "services": [
-    {
-      "name": "Heren knippen",
-      "description": "Een verzorgde coupe met aandacht voor jouw persoonlijke stijl.",
-      "price": "",
-      "duration": ""
-    },
-    {
-      "name": "Tondeuse knippen",
-      "description": "Voor een strakke, korte coupe met een nette afwerking.",
-      "price": "",
-      "duration": ""
-    }
-  ],
-
-  "about": {
-    "title": "Meer dan alleen een knipbeurt.",
-    "description": "Een bezoek aan de kapper moet prettig en ontspannen zijn. Bij Salon Jurgen staat een persoonlijke benadering centraal, met aandacht voor jouw wensen."
-  },
-
-  "hours_introduction": "Bekijk onze openingstijden of neem contact op voor het maken van een afspraak.",
-
-  "opening_hours": [],
-
-  "hours_note": "De openingstijden worden nog gecontroleerd. Neem voor de zekerheid contact op.",
-
-  "contact": {
-    "introduction": "Zin in een nieuwe coupe of een vraag over een behandeling? Neem contact op met Salon Jurgen.",
-    "phone": "053 572 3756",
-    "email": "info@salonjurgen.nl",
-    "address": "Jonkheer von Heijdenstraat 23",
-    "postal_code": "7481 EC",
-    "city": "Haaksbergen",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Jonkheer+von+Heijdenstraat+23+Haaksbergen",
-    "booking_url": ""
   }
 }
