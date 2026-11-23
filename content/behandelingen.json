@@ -1,0 +1,20 @@
+{
+  "introduction": "Van een frisse knipbeurt tot een verzorgde korte coupe. Ontdek de behandelingen van Salon Jurgen en kies wat bij jou past.",
+
+  "services": [
+    {
+      "name": "Heren knippen",
+      "description": "Een verzorgde coupe met aandacht voor jouw persoonlijke stijl.",
+      "price": "",
+      "duration": "",
+      "published": true
+    },
+    {
+      "name": "Tondeuse knippen",
+      "description": "Voor een strakke, korte coupe met een nette afwerking.",
+      "price": "",
+      "duration": "",
+      "published": true
+    }
+  ]
+}
