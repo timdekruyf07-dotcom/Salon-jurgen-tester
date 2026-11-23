@@ -1,6 +1,7 @@
 /* ==========================================
    SALON JURGEN
    EXTRA STYLING VOOR LOSSE PAGINA'S
+   MET KAPPERSSCHAAR ACHTER PAGINATITELS
 ========================================== */
 
 
@@ -42,7 +43,7 @@ body {
 
 
 /* ==========================================
-   DEMO EN GEDEELDE NAVIGATIE
+   NAVIGATIE
 ========================================== */
 
 .site-header {
@@ -63,7 +64,7 @@ body {
 
 
 /* ==========================================
-   HOMEPAGE AANVULLINGEN
+   HOMEPAGE
 ========================================== */
 
 .section-bottom-link {
@@ -144,18 +145,74 @@ body {
   line-height: 1.9;
 }
 
+
+/* ==========================================
+   NIEUW: KAPPERSSCHAAR OP DE ACHTERGROND
+
+   Vervangt de grote cijfers 01, 02, 03 en 04.
+
+   We gebruiken een vectorillustratie.
+   Daardoor blijft de schaar scherp,
+   ook op grote schermen.
+========================================== */
+
 .inner-hero-number {
   position: absolute;
   z-index: 1;
+
+  top: 50%;
   right: 5%;
-  top: 30px;
-  color: rgba(191, 139, 98, .07);
-  font-family: var(--heading);
-  font-size: clamp(160px, 25vw, 390px);
-  font-weight: 800;
-  letter-spacing: -.1em;
-  line-height: 1;
+
+  width: clamp(200px, 27vw, 380px);
+  height: clamp(200px, 27vw, 380px);
+
+  transform:
+    translateY(-50%)
+    rotate(-18deg);
+
+  /*
+   * Verbergt de oorspronkelijke cijfers
+   * zonder HTML te hoeven aanpassen.
+   */
+  font-size: 0;
+  color: transparent;
+
+  pointer-events: none;
   user-select: none;
+}
+
+
+/* De eigenlijke kappersschaar */
+
+.inner-hero-number::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(191, 139, 98, 0.17);
+
+  /*
+   * SVG-illustratie van een schaar.
+   * De vorm wordt als masker gebruikt,
+   * zodat de kleur via CSS instelbaar is.
+   */
+
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='6' cy='6' r='3'/%3E%3Ccircle cx='6' cy='18' r='3'/%3E%3Cpath d='M8.12 8.12 12 12'/%3E%3Cpath d='M20 4 8.12 15.88'/%3E%3Cpath d='M14.8 14.8 20 20'/%3E%3C/svg%3E");
+
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='6' cy='6' r='3'/%3E%3Ccircle cx='6' cy='18' r='3'/%3E%3Cpath d='M8.12 8.12 12 12'/%3E%3Cpath d='M20 4 8.12 15.88'/%3E%3Cpath d='M14.8 14.8 20 20'/%3E%3C/svg%3E");
+
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  -webkit-mask-position: center;
+  mask-position: center;
+
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 
 
@@ -491,6 +548,12 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .inner-hero-number {
+    right: 2%;
+    width: 260px;
+    height: 260px;
+  }
+
 }
 
 
@@ -513,10 +576,25 @@ body {
     font-size: 15px;
   }
 
+
+  /* KAPPERSSCHAAR OP TELEFOON */
+
   .inner-hero-number {
-    right: 0;
-    top: 50px;
+    top: 50%;
+    right: -45px;
+
+    width: 230px;
+    height: 230px;
+
+    transform:
+      translateY(-50%)
+      rotate(-18deg);
   }
+
+  .inner-hero-number::before {
+    background-color: rgba(191, 139, 98, 0.12);
+  }
+
 
   .section-bottom-link {
     flex-direction: column;
@@ -583,6 +661,12 @@ body {
   .visit-card,
   .contact-info-card {
     padding: 23px;
+  }
+
+  .inner-hero-number {
+    right: -70px;
+    width: 195px;
+    height: 195px;
   }
 
 }
