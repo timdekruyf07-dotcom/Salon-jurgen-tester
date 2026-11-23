@@ -1,11 +1,12 @@
 # ==========================================
 # SALON JURGEN
 # SVELTIA CMS CONFIGURATIE
+# VIJF LOSSE PAGINA'S
 # ==========================================
 
 
 # ==========================================
-# GITHUB & INLOGGEN
+# GITHUB
 # ==========================================
 
 backend:
@@ -24,7 +25,7 @@ locale: nl
 
 
 # ==========================================
-# AFBEELDINGEN
+# MEDIA
 # ==========================================
 
 media_folder: "images/uploads"
@@ -37,25 +38,22 @@ public_folder: "images/uploads"
 
 collections:
 
-  - name: website
+  - name: paginas
     label: Website beheren
 
     files:
+
 
       # ====================================
       # HOMEPAGE
       # ====================================
 
       - name: homepage
-        label: Homepage beheren
+        label: Home
         file: content/home.json
         format: json
 
         fields:
-
-          # =================================
-          # HERO
-          # =================================
 
           - label: Bovenkant van de homepage
             name: hero
@@ -84,7 +82,6 @@ collections:
                 name: image
                 widget: image
                 required: false
-                hint: "Upload een foto van de salon. Zonder foto blijft de grafische achtergrond zichtbaar."
 
               - label: Beschrijving van de foto
                 name: image_alt
@@ -92,12 +89,19 @@ collections:
                 required: false
 
 
-          # =================================
-          # BEHANDELINGEN
-          # =================================
+      # ====================================
+      # BEHANDELINGEN
+      # ====================================
 
-          - label: Introductie behandelingen
-            name: services_introduction
+      - name: behandelingen
+        label: Behandelingen
+        file: content/behandelingen.json
+        format: json
+
+        fields:
+
+          - label: Introductietekst
+            name: introduction
             widget: text
 
           - label: Behandelingen
@@ -107,7 +111,8 @@ collections:
             summary: "{{fields.name}}"
             required: false
             default: []
-            hint: "Voeg een behandeling toe of wijzig de bestaande behandelingen."
+
+            hint: "Voeg behandelingen toe, verwijder ze of pas de prijzen aan."
 
             fields:
 
@@ -123,41 +128,96 @@ collections:
                 name: price
                 widget: string
                 required: false
-                hint: "Bijvoorbeeld: € 25,50. Laat leeg als de prijs nog niet bekend is."
+                hint: "Bijvoorbeeld: € 25,50"
 
               - label: Behandeltijd
                 name: duration
                 widget: string
                 required: false
-                hint: "Bijvoorbeeld: 30 minuten."
+                hint: "Bijvoorbeeld: 30 minuten"
+
+              - label: Zichtbaar op website
+                name: published
+                widget: boolean
+                default: true
 
 
-          # =================================
-          # OVER DE SALON
-          # =================================
+      # ====================================
+      # OVER DE SALON EN REVIEWS
+      # ====================================
 
-          - label: Over de salon
-            name: about
-            widget: object
-            collapsed: true
+      - name: overons
+        label: Over de salon en reviews
+        file: content/over-ons.json
+        format: json
+
+        fields:
+
+          - label: Introductietekst bovenaan
+            name: introduction
+            widget: text
+
+          - label: Titel over de salon
+            name: title
+            widget: string
+
+          - label: Beschrijving van de salon
+            name: description
+            widget: text
+
+          - label: Foto van de salon
+            name: image
+            widget: image
+            required: false
+
+          - label: Beschrijving van de foto
+            name: image_alt
+            widget: string
+            required: false
+
+          - label: Introductietekst bij reviews
+            name: reviews_introduction
+            widget: text
+
+          - label: Klantreviews
+            name: reviews
+            widget: list
+            label_singular: Review
+            summary: "{{fields.name}}"
+            required: false
+            default: []
+
+            hint: "Voeg hier echte klantbeoordelingen toe."
 
             fields:
 
-              - label: Titel
-                name: title
+              - label: Naam van de klant
+                name: name
                 widget: string
 
-              - label: Beschrijving
-                name: description
+              - label: Beoordeling
+                name: text
                 widget: text
 
+              - label: Zichtbaar op website
+                name: published
+                widget: boolean
+                default: true
 
-          # =================================
-          # OPENINGSTIJDEN
-          # =================================
 
-          - label: Tekst boven de openingstijden
-            name: hours_introduction
+      # ====================================
+      # OPENINGSTIJDEN
+      # ====================================
+
+      - name: openingstijden
+        label: Openingstijden
+        file: content/openingstijden.json
+        format: json
+
+        fields:
+
+          - label: Introductietekst
+            name: introduction
             widget: text
 
           - label: Openingstijden
@@ -168,70 +228,83 @@ collections:
             required: false
             default: []
 
+            hint: "Voeg de openingstijden toe in de gewenste volgorde."
+
             fields:
 
               - label: Dag
                 name: day
                 widget: string
 
-              - label: Openingstijd
+              - label: Openingstijden
                 name: hours
                 widget: string
                 hint: "Bijvoorbeeld: 09:00 - 18:00 of Gesloten"
 
-          - label: Extra tekst bij openingstijden
-            name: hours_note
+          - label: Extra opmerking bij openingstijden
+            name: note
+            widget: text
+            required: false
+
+          - label: Praktische informatie
+            name: extra_information
             widget: text
             required: false
 
 
-          # =================================
-          # CONTACTGEGEVENS
-          # =================================
+      # ====================================
+      # CONTACT
+      # ====================================
 
-          - label: Contactgegevens
-            name: contact
-            widget: object
-            collapsed: true
+      - name: contact
+        label: Contact
+        file: content/contact.json
+        format: json
 
-            fields:
+        fields:
 
-              - label: Introductietekst
-                name: introduction
-                widget: text
+          - label: Introductietekst
+            name: introduction
+            widget: text
 
-              - label: Telefoonnummer
-                name: phone
-                widget: string
-                required: false
+          - label: Telefoonnummer
+            name: phone
+            widget: string
+            required: false
 
-              - label: E-mailadres
-                name: email
-                widget: string
-                required: false
+          - label: E-mailadres
+            name: email
+            widget: string
+            required: false
 
-              - label: Straat en huisnummer
-                name: address
-                widget: string
-                required: false
+          - label: Straat en huisnummer
+            name: address
+            widget: string
+            required: false
 
-              - label: Postcode
-                name: postal_code
-                widget: string
-                required: false
+          - label: Postcode
+            name: postal_code
+            widget: string
+            required: false
 
-              - label: Plaats
-                name: city
-                widget: string
-                required: false
+          - label: Plaats
+            name: city
+            widget: string
+            required: false
 
-              - label: Google Maps-link
-                name: maps
-                widget: string
-                required: false
+          - label: Google Maps-link
+            name: maps
+            widget: string
+            required: false
 
-              - label: Online boekingslink
-                name: booking_url
-                widget: string
-                required: false
-                hint: "Plak hier de officiële link naar het online boekingssysteem."
+          - label: Online boekingslink
+            name: booking_url
+            widget: string
+            required: false
+
+            hint: "Plak hier de officiële link naar het boekingssysteem."
+
+          - label: Aanvullende informatie
+            name: extra_information
+            widget: text
+            required: false
