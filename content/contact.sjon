@@ -1,5 +1,5 @@
 {
-  "introduction": "Zin in een nieuwe coupe of heb je een vraag over een behandeling? Neem gerust contact op met Salon Jurgen.",
+  "introduction": "Wil je een afspraak maken bij Salon Jurgen of heb je een vraag over een behandeling? Neem telefonisch contact op of gebruik het online boekingssysteem.",
 
   "phone": "053 572 3756",
   "email": "info@salonjurgen.nl",
@@ -10,7 +10,7 @@
 
   "maps": "https://www.google.com/maps/search/?api=1&query=Jonkheer+von+Heijdenstraat+23+Haaksbergen",
 
-  "booking_url": "",
+  "booking_url": "https://kapsalon-hannette-1.salonized.com/",
 
-  "extra_information": "Maak bij voorkeur vooraf een afspraak om zeker te weten dat er tijd is voor jouw behandeling."
+  "extra_information": "Je kunt online een afspraak maken via het bestaande boekingssysteem van Salon Jurgen.\n\nKun je online geen geschikt tijdstip vinden? Bel dan de salon om te overleggen.\n\nVolgens de oorspronkelijke website moeten afspraken voor zaterdag telefonisch worden gemaakt."
 }
