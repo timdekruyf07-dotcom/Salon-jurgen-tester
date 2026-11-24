@@ -11,18 +11,41 @@
 
   <meta name="robots" content="noindex, nofollow">
 
-  <title>Beheer | Salon Jurgen</title>
+  <meta name="theme-color" content="#171818">
+
+  <title>Beheeromgeving | Salon Jurgen</title>
 
   <link
-    href="config.yml"
+    href="./config.yml"
     type="text/yaml"
     rel="cms-config-url"
   >
+
+  <style>
+    body {
+      margin: 0;
+      background: #171818;
+      font-family: Arial, sans-serif;
+    }
+  </style>
+
 </head>
 
 <body>
 
-  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+  <!--
+    Salon Jurgen CMS
+
+    Inloggen verloopt via Sveltia CMS
+    met een GitHub Personal Access Token.
+
+    Zet nooit een token rechtstreeks
+    in deze HTML-code.
+  -->
+
+  <script
+    src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"
+  ></script>
 
 </body>
 </html>
