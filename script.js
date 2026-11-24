@@ -1,20 +1,33 @@
 /* ==========================================
    SALON JURGEN
-   WEBSITE JAVASCRIPT
+   COMPLETE WEBSITE JAVASCRIPT
 
-   - VIJF PAGINA'S
+   FUNCTIES:
+   - 5 LOSSE PAGINA'S
+   - LOGO ALS HOME-KNOP
+   - MOBIEL MENU
    - SVELTIA CMS
-   - PNG-LOGO
+   - BEHANDELINGEN
+   - OPENINGSTIJDEN
+   - CONTACT EN ONLINE BOEKEN
+   - FOTO'S
    - REVIEWS MET STERREN
    - REVIEWS SORTEREN
+   - 6 REVIEWS PER PAGINA
 ========================================== */
 
 (function () {
   "use strict";
 
+  /* ========================================
+     INSTELLINGEN
+  ======================================== */
+
   const page = document.body.dataset.page || "home";
 
   const LOGO_URL = "images/salon-jurgen-logo.png";
+
+  const REVIEWS_PER_PAGE = 6;
 
   const DATA = {
     home: "content/home.json",
@@ -25,10 +38,12 @@
   };
 
   let allReviews = [];
+  let currentReviewPage = 1;
+  let currentReviewSort = "original";
 
 
   /* ========================================
-     BASISFUNCTIES
+     HULPFUNCTIES
   ======================================== */
 
   function byId(id) {
@@ -59,7 +74,7 @@
 
 
   /* ========================================
-     LINKS CONTROLEREN
+     VEILIGE LINKS
   ======================================== */
 
   function safeWebUrl(value) {
@@ -123,7 +138,6 @@
     }
 
     const base = new URL(".", document.baseURI);
-
     const folder = base.pathname.replace(/\/$/, "");
 
     if (folder && path.startsWith(folder + "/")) {
@@ -142,9 +156,6 @@
 
   /* ========================================
      EXTRA STYLING
-
-     Deze styling wordt automatisch geladen.
-     style.css en pages.css blijven hetzelfde.
   ======================================== */
 
   function addExtraStyles() {
@@ -188,11 +199,10 @@
 
       .site-header .brand-fallback {
         display: none;
-        color: #fff;
+        color: white;
         font-family: var(--heading);
         font-size: 18px;
         font-weight: 800;
-        letter-spacing: .08em;
       }
 
       .site-header .brand.logo-error .brand-logo {
@@ -209,13 +219,13 @@
 
 
       /* =====================================
-         REVIEWS: SORTEERBALK
+         REVIEWS SORTEERBALK
       ===================================== */
 
       .reviews-toolbar {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
         flex-wrap: wrap;
         gap: 22px;
         margin-bottom: 30px;
@@ -258,9 +268,9 @@
       .reviews-sort-control select {
         min-width: 220px;
         min-height: 46px;
-        padding: 0 35px 0 14px;
+        padding: 0 14px;
+        background: white;
         border: 1px solid var(--line);
-        background: #fff;
         color: var(--dark);
         font-family: var(--font);
         font-size: 13px;
@@ -268,19 +278,10 @@
         cursor: pointer;
       }
 
-      .reviews-sort-control select:focus-visible {
-        outline: 2px solid var(--copper);
-        outline-offset: 3px;
-      }
-
 
       /* =====================================
-         REVIEWS: KAARTEN
+         STERREN
       ===================================== */
-
-      .review-page-card {
-        gap: 16px;
-      }
 
       .review-stars {
         display: flex;
@@ -311,6 +312,15 @@
         font-size: 12px;
       }
 
+
+      /* =====================================
+         REVIEWKAARTEN
+      ===================================== */
+
+      .review-page-card {
+        gap: 16px;
+      }
+
       .review-page-card .review-page-quote {
         margin-bottom: 0;
         line-height: .7;
@@ -339,6 +349,76 @@
         color: var(--muted);
         font-size: 12px;
         text-align: right;
+      }
+
+
+      /* =====================================
+         PAGINERING REVIEWS
+      ===================================== */
+
+      .reviews-pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 40px;
+      }
+
+      .reviews-page-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 42px;
+        min-height: 42px;
+        padding: 10px 14px;
+        border: 1px solid var(--line);
+        background: #fffcf7;
+        color: var(--dark);
+        font-family: var(--font);
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          background .2s,
+          color .2s,
+          border-color .2s;
+      }
+
+      .reviews-page-button:hover:not(:disabled) {
+        background: var(--dark);
+        border-color: var(--dark);
+        color: white;
+      }
+
+      .reviews-page-button.active {
+        background: var(--copper);
+        border-color: var(--copper);
+        color: var(--dark);
+      }
+
+      .reviews-page-button:disabled {
+        opacity: .35;
+        cursor: not-allowed;
+      }
+
+      .reviews-page-button:focus-visible,
+      .reviews-sort-control select:focus-visible {
+        outline: 2px solid var(--copper);
+        outline-offset: 3px;
+      }
+
+      .reviews-page-dots {
+        padding: 0 5px;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .reviews-page-status {
+        margin: 16px 0 0;
+        color: var(--muted);
+        text-align: center;
+        font-size: 12px;
       }
 
 
@@ -380,6 +460,17 @@
 
         .reviews-sort-control select {
           width: 100%;
+        }
+
+        .reviews-pagination {
+          gap: 6px;
+        }
+
+        .reviews-page-button {
+          min-width: 38px;
+          min-height: 38px;
+          padding: 8px 10px;
+          font-size: 12px;
         }
       }
 
@@ -449,22 +540,17 @@
     );
 
     const header = makeElement("header", "site-header");
-
     const inner = makeElement("div", "container nav-inner");
-
-
-    /* LOGO ALS HOME-KNOP */
 
     const brand = makeElement("a", "brand");
 
     brand.href = "index.html";
+    brand.title = "Terug naar de homepage";
 
     brand.setAttribute(
       "aria-label",
       "Salon Jurgen - Ga naar de homepage"
     );
-
-    brand.title = "Terug naar de homepage";
 
     const logo = document.createElement("img");
 
@@ -487,9 +573,6 @@
 
     brand.append(logo, fallback);
 
-
-    /* MOBIEL MENU */
-
     const toggle = makeElement("button", "menu-toggle");
 
     toggle.type = "button";
@@ -506,13 +589,9 @@
       toggle.appendChild(document.createElement("span"));
     }
 
-
-    /* NAVIGATIE */
-
     const nav = makeElement("nav", "navigation");
 
     nav.id = "main-navigation";
-
     nav.setAttribute("aria-label", "Hoofdnavigatie");
 
     links.forEach(function (item) {
@@ -549,14 +628,9 @@
 
     container.replaceChildren(demo, header);
 
-
-    /* MOBIEL MENU FUNCTIONALITEIT */
-
     function closeMenu() {
       nav.classList.remove("open");
-
       document.body.classList.remove("menu-open");
-
       toggle.setAttribute("aria-expanded", "false");
     }
 
@@ -565,7 +639,10 @@
 
       document.body.classList.toggle("menu-open", opened);
 
-      toggle.setAttribute("aria-expanded", String(opened));
+      toggle.setAttribute(
+        "aria-expanded",
+        String(opened)
+      );
     });
 
     nav.querySelectorAll("a").forEach(function (link) {
@@ -592,7 +669,6 @@
     }
 
     const footer = makeElement("footer", "site-footer");
-
     const inner = makeElement("div", "container");
 
     const top = makeElement("div", "footer-top");
@@ -604,7 +680,6 @@
     );
 
     brand.href = "index.html";
-
     brand.appendChild(makeElement("span", "", "."));
 
     const back = makeElement(
@@ -638,7 +713,6 @@
     );
 
     inner.append(top, bottom);
-
     footer.appendChild(inner);
 
     container.replaceChildren(footer);
@@ -654,7 +728,9 @@
 
     if (
       !("IntersectionObserver" in window) ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches
     ) {
       elements.forEach(function (element) {
         element.classList.add("visible");
@@ -712,8 +788,6 @@
       return;
     }
 
-    const fragment = document.createDocumentFragment();
-
     const visibleServices = services.filter(function (service) {
       return (
         service &&
@@ -725,6 +799,8 @@
     const selected = typeof limit === "number"
       ? visibleServices.slice(0, limit)
       : visibleServices;
+
+    const fragment = document.createDocumentFragment();
 
     selected.forEach(function (service, index) {
       const card = makeElement("article", "service-card");
@@ -851,13 +927,13 @@
 
 
   /* ========================================
-     REVIEWS - HULPFUNCTIES
+     REVIEWS: STERREN
   ======================================== */
 
   function getRating(review) {
     if (
-      review.rating === null ||
       review.rating === undefined ||
+      review.rating === null ||
       review.rating === ""
     ) {
       return null;
@@ -914,11 +990,6 @@
     }).format(date);
   }
 
-
-  /* ========================================
-     REVIEWS - STERREN MAKEN
-  ======================================== */
-
   function createStars(review) {
     const rating = getRating(review);
 
@@ -971,18 +1042,18 @@
 
 
   /* ========================================
-     REVIEWS - SORTEREN
+     REVIEWS: SORTEREN
   ======================================== */
 
-  function sortReviews(reviews, sortMode) {
-    const result = reviews.map(function (review, index) {
+  function sortReviews(reviews, mode) {
+    const items = reviews.map(function (review, index) {
       return {
         review: review,
         index: index
       };
     });
 
-    result.sort(function (a, b) {
+    items.sort(function (a, b) {
       const ratingA = getRating(a.review);
       const ratingB = getRating(b.review);
 
@@ -990,13 +1061,9 @@
       const dateB = getReviewDate(b.review);
 
       if (
-        sortMode === "rating-high" ||
-        sortMode === "rating-low"
+        mode === "rating-high" ||
+        mode === "rating-low"
       ) {
-        /*
-         * Reviews zonder sterren komen onderaan.
-         */
-
         if (ratingA === null && ratingB !== null) {
           return 1;
         }
@@ -1006,7 +1073,7 @@
         }
 
         if (ratingA !== null && ratingB !== null) {
-          const difference = sortMode === "rating-high"
+          const difference = mode === "rating-high"
             ? ratingB - ratingA
             : ratingA - ratingB;
 
@@ -1017,13 +1084,9 @@
       }
 
       if (
-        sortMode === "date-new" ||
-        sortMode === "date-old"
+        mode === "date-new" ||
+        mode === "date-old"
       ) {
-        /*
-         * Reviews zonder datum komen onderaan.
-         */
-
         if (!dateA && dateB) {
           return 1;
         }
@@ -1033,7 +1096,7 @@
         }
 
         if (dateA && dateB) {
-          const difference = sortMode === "date-new"
+          const difference = mode === "date-new"
             ? dateB.getTime() - dateA.getTime()
             : dateA.getTime() - dateB.getTime();
 
@@ -1043,92 +1106,308 @@
         }
       }
 
-      /*
-       * Bij gelijke beoordeling of datum
-       * behouden we de CMS-volgorde.
-       */
-
       return a.index - b.index;
     });
 
-    return result.map(function (item) {
+    return items.map(function (item) {
       return item.review;
     });
   }
 
 
   /* ========================================
-     REVIEWS - KAARTEN TONEN
+     REVIEWS: KAART MAKEN
   ======================================== */
 
-  function displayReviews(sortMode) {
+  function createReviewCard(review) {
+    const card = makeElement(
+      "article",
+      "review-page-card"
+    );
+
+    card.appendChild(createStars(review));
+
+    card.appendChild(
+      makeElement(
+        "span",
+        "review-page-quote",
+        "”"
+      )
+    );
+
+    card.appendChild(
+      makeElement("p", "", review.text || "")
+    );
+
+    const footer = makeElement(
+      "div",
+      "review-page-footer"
+    );
+
+    footer.appendChild(
+      makeElement(
+        "div",
+        "review-page-author",
+        review.name || "Klant"
+      )
+    );
+
+    const dateText = formatReviewDate(review);
+
+    if (dateText) {
+      const time = makeElement(
+        "time",
+        "review-date",
+        dateText
+      );
+
+      time.dateTime = review.date;
+
+      footer.appendChild(time);
+    }
+
+    card.appendChild(footer);
+
+    return card;
+  }
+
+
+  /* ========================================
+     REVIEWS: PAGINANUMMERS BEPALEN
+  ======================================== */
+
+  function getVisiblePageNumbers(totalPages, currentPage) {
+    const pages = new Set([
+      1,
+      totalPages,
+      currentPage - 1,
+      currentPage,
+      currentPage + 1
+    ]);
+
+    return Array.from(pages)
+      .filter(function (number) {
+        return number >= 1 && number <= totalPages;
+      })
+      .sort(function (a, b) {
+        return a - b;
+      });
+  }
+
+
+  /* ========================================
+     REVIEWS: PAGINERING MAKEN
+  ======================================== */
+
+  function renderPagination(totalPages) {
     const grid = byId("reviews-grid");
 
     if (!grid) {
       return;
     }
 
-    const reviews = sortReviews(allReviews, sortMode);
+    let wrapper = byId("reviews-pagination-wrapper");
+
+    if (!wrapper) {
+      wrapper = makeElement(
+        "div",
+        "reviews-pagination-wrapper"
+      );
+
+      wrapper.id = "reviews-pagination-wrapper";
+
+      grid.insertAdjacentElement("afterend", wrapper);
+    }
+
+    wrapper.replaceChildren();
+
+    if (totalPages <= 1) {
+      return;
+    }
+
+    const nav = makeElement(
+      "nav",
+      "reviews-pagination"
+    );
+
+    nav.setAttribute(
+      "aria-label",
+      "Navigatie door klantreviews"
+    );
+
+    function addPageButton(label, pageNumber, disabled, active) {
+      const button = makeElement(
+        "button",
+        active
+          ? "reviews-page-button active"
+          : "reviews-page-button",
+        label
+      );
+
+      button.type = "button";
+      button.disabled = disabled;
+
+      if (active) {
+        button.setAttribute(
+          "aria-current",
+          "page"
+        );
+      }
+
+      button.setAttribute(
+        "aria-label",
+        "Ga naar reviewpagina " + pageNumber
+      );
+
+      button.addEventListener("click", function () {
+        changeReviewPage(pageNumber);
+      });
+
+      nav.appendChild(button);
+    }
+
+    addPageButton(
+      "← Vorige",
+      currentReviewPage - 1,
+      currentReviewPage === 1,
+      false
+    );
+
+    const pageNumbers = getVisiblePageNumbers(
+      totalPages,
+      currentReviewPage
+    );
+
+    let previousNumber = 0;
+
+    pageNumbers.forEach(function (number) {
+      if (previousNumber && number - previousNumber > 1) {
+        nav.appendChild(
+          makeElement(
+            "span",
+            "reviews-page-dots",
+            "…"
+          )
+        );
+      }
+
+      addPageButton(
+        String(number),
+        number,
+        false,
+        number === currentReviewPage
+      );
+
+      previousNumber = number;
+    });
+
+    addPageButton(
+      "Volgende →",
+      currentReviewPage + 1,
+      currentReviewPage === totalPages,
+      false
+    );
+
+    wrapper.appendChild(nav);
+
+    const start = (currentReviewPage - 1) *
+      REVIEWS_PER_PAGE + 1;
+
+    const end = Math.min(
+      currentReviewPage * REVIEWS_PER_PAGE,
+      allReviews.length
+    );
+
+    wrapper.appendChild(
+      makeElement(
+        "p",
+        "reviews-page-status",
+        "Beoordelingen " +
+          start +
+          " t/m " +
+          end +
+          " van " +
+          allReviews.length
+      )
+    );
+  }
+
+
+  /* ========================================
+     REVIEWS: PAGINA WISSELEN
+  ======================================== */
+
+  function changeReviewPage(pageNumber) {
+    const totalPages = Math.max(
+      1,
+      Math.ceil(allReviews.length / REVIEWS_PER_PAGE)
+    );
+
+    currentReviewPage = Math.min(
+      totalPages,
+      Math.max(1, pageNumber)
+    );
+
+    displayReviews();
+
+    const toolbar = byId("reviews-toolbar");
+
+    if (toolbar) {
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      toolbar.scrollIntoView({
+        behavior: reduceMotion ? "auto" : "smooth",
+        block: "start"
+      });
+    }
+  }
+
+
+  /* ========================================
+     REVIEWS: ZES KAARTEN TONEN
+  ======================================== */
+
+  function displayReviews() {
+    const grid = byId("reviews-grid");
+
+    if (!grid) {
+      return;
+    }
+
+    const sorted = sortReviews(
+      allReviews,
+      currentReviewSort
+    );
+
+    const totalPages = Math.max(
+      1,
+      Math.ceil(sorted.length / REVIEWS_PER_PAGE)
+    );
+
+    currentReviewPage = Math.min(
+      currentReviewPage,
+      totalPages
+    );
+
+    const startIndex =
+      (currentReviewPage - 1) * REVIEWS_PER_PAGE;
+
+    const pageReviews = sorted.slice(
+      startIndex,
+      startIndex + REVIEWS_PER_PAGE
+    );
 
     const fragment = document.createDocumentFragment();
 
-    reviews.forEach(function (review) {
-      const card = makeElement(
-        "article",
-        "review-page-card"
+    pageReviews.forEach(function (review) {
+      fragment.appendChild(
+        createReviewCard(review)
       );
-
-      card.appendChild(createStars(review));
-
-      card.appendChild(
-        makeElement(
-          "span",
-          "review-page-quote",
-          "”"
-        )
-      );
-
-      card.appendChild(
-        makeElement(
-          "p",
-          "",
-          review.text || ""
-        )
-      );
-
-      const footer = makeElement(
-        "div",
-        "review-page-footer"
-      );
-
-      footer.appendChild(
-        makeElement(
-          "div",
-          "review-page-author",
-          review.name || "Klant"
-        )
-      );
-
-      const dateText = formatReviewDate(review);
-
-      if (dateText) {
-        footer.appendChild(
-          makeElement(
-            "time",
-            "review-date",
-            dateText
-          )
-        );
-
-        footer.lastChild.dateTime = review.date;
-      }
-
-      card.appendChild(footer);
-
-      fragment.appendChild(card);
     });
 
-    if (!reviews.length) {
+    if (!pageReviews.length) {
       const empty = makeElement(
         "div",
         "reviews-empty"
@@ -1158,11 +1437,13 @@
     }
 
     grid.replaceChildren(fragment);
+
+    renderPagination(totalPages);
   }
 
 
   /* ========================================
-     REVIEWS - SORTEERKNOP TONEN
+     REVIEWS: SORTEERBALK
   ======================================== */
 
   function createReviewsToolbar() {
@@ -1172,14 +1453,10 @@
       return;
     }
 
-    /*
-     * Voorkomt dubbele sorteerbalken.
-     */
+    const existing = byId("reviews-toolbar");
 
-    const oldToolbar = byId("reviews-toolbar");
-
-    if (oldToolbar) {
-      oldToolbar.remove();
+    if (existing) {
+      existing.remove();
     }
 
     const toolbar = makeElement(
@@ -1200,7 +1477,10 @@
       makeElement(
         "strong",
         "",
-        amount + (amount === 1 ? " beoordeling" : " beoordelingen")
+        amount +
+          (amount === 1
+            ? " beoordeling"
+            : " beoordelingen")
       )
     );
 
@@ -1211,9 +1491,6 @@
         "Ervaringen van klanten"
       )
     );
-
-
-    /* SORTEERVELD */
 
     const control = makeElement(
       "div",
@@ -1259,14 +1536,18 @@
       const element = document.createElement("option");
 
       element.value = option.value;
-
       element.textContent = option.label;
 
       select.appendChild(element);
     });
 
+    select.value = currentReviewSort;
+
     select.addEventListener("change", function () {
-      displayReviews(select.value);
+      currentReviewSort = select.value;
+      currentReviewPage = 1;
+
+      displayReviews();
     });
 
     control.append(label, select);
@@ -1278,7 +1559,7 @@
 
 
   /* ========================================
-     REVIEWS - DATA VERWERKEN
+     REVIEWS: GEGEVENS LADEN
   ======================================== */
 
   function renderReviews(reviews) {
@@ -1296,9 +1577,11 @@
       );
     });
 
-    createReviewsToolbar();
+    currentReviewPage = 1;
+    currentReviewSort = "original";
 
-    displayReviews("original");
+    createReviewsToolbar();
+    displayReviews();
   }
 
 
@@ -1313,7 +1596,6 @@
     alt
   ) {
     const image = byId(imageId);
-
     const placeholder = byId(placeholderId);
 
     if (!image || !placeholder) {
@@ -1363,29 +1645,19 @@
       data.extra_information
     );
 
-
-    /* ADRES */
-
     const address = byId("contact-address");
 
     if (address) {
       const location = [
         data.postal_code || "",
         data.city || ""
-      ]
-        .filter(Boolean)
-        .join(" ");
+      ].filter(Boolean).join(" ");
 
       address.textContent = [
         data.address || "",
         location
-      ]
-        .filter(Boolean)
-        .join("\n");
+      ].filter(Boolean).join("\n");
     }
-
-
-    /* TELEFOON */
 
     const phone = byId("contact-phone");
 
@@ -1401,9 +1673,6 @@
       }
     }
 
-
-    /* E-MAIL */
-
     const email = byId("contact-email");
 
     if (email) {
@@ -1418,9 +1687,6 @@
       }
     }
 
-
-    /* GOOGLE MAPS */
-
     const maps = byId("contact-maps");
 
     if (maps) {
@@ -1434,25 +1700,6 @@
         maps.hidden = true;
       }
     }
-
-
-    /* BELKNOP */
-
-    const phoneButton = byId("contact-phone-button");
-
-    if (phoneButton) {
-      const url = safePhoneUrl(data.phone);
-
-      if (url) {
-        phoneButton.href = url;
-        phoneButton.hidden = false;
-      } else {
-        phoneButton.hidden = true;
-      }
-    }
-
-
-    /* AFSPRAAKKNOPPEN */
 
     const bookingUrl = safeWebUrl(data.booking_url);
 
@@ -1476,7 +1723,7 @@
 
 
   /* ========================================
-     HOMEPAGE LADEN
+     HOMEPAGE
   ======================================== */
 
   async function loadHome() {
@@ -1491,21 +1738,9 @@
 
       if (home.hero) {
         setText("hero-eyebrow", home.hero.eyebrow);
-
-        setText(
-          "hero-title-line1",
-          home.hero.title_line1
-        );
-
-        setText(
-          "hero-title-line2",
-          home.hero.title_line2
-        );
-
-        setText(
-          "hero-description",
-          home.hero.description
-        );
+        setText("hero-title-line1", home.hero.title_line1);
+        setText("hero-title-line2", home.hero.title_line2);
+        setText("hero-description", home.hero.description);
 
         loadOptionalImage(
           "hero-image",
@@ -1534,7 +1769,7 @@
 
 
   /* ========================================
-     BEHANDELINGENPAGINA
+     BEHANDELINGEN
   ======================================== */
 
   async function loadTreatments() {
@@ -1553,7 +1788,7 @@
 
 
   /* ========================================
-     OVER DE SALON + REVIEWS
+     OVER DE SALON EN REVIEWS
   ======================================== */
 
   async function loadAbout() {
@@ -1564,10 +1799,7 @@
       data.introduction
     );
 
-    setText(
-      "about-page-title",
-      data.title
-    );
+    setText("about-page-title", data.title);
 
     setText(
       "about-page-description",
@@ -1591,7 +1823,7 @@
 
 
   /* ========================================
-     OPENINGSTIJDENPAGINA
+     OPENINGSTIJDEN
   ======================================== */
 
   async function loadHours() {
@@ -1614,7 +1846,7 @@
 
 
   /* ========================================
-     CONTACTPAGINA
+     CONTACT
   ======================================== */
 
   async function loadContact() {
@@ -1643,9 +1875,7 @@
     addExtraStyles();
 
     renderHeader();
-
     renderFooter();
-
     initializeAnimations();
 
     const tasks = [];
