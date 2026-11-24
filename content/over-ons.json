@@ -1,34 +1,29 @@
 {
   "introduction": "Maak kennis met Salon Jurgen, een kapsalon voor heren in Haaksbergen.",
-
   "title": "Een vertrouwd adres voor een goede knipbeurt.",
-
   "description": "Bij Salon Jurgen in Haaksbergen draait het om een verzorgde coupe en persoonlijke aandacht.\n\nOf je nu kiest voor een herenknipbeurt of een korte tondeusecoupe, het doel is dat je tevreden de salon verlaat.\n\nKlanten waarderen onder andere het vakmanschap, de gezellige sfeer en de prettige behandeling.",
-
   "image": "",
   "image_alt": "",
-
   "reviews_introduction": "Ontdek de ervaringen van klanten van Salon Jurgen. De beoordelingen zijn afkomstig uit het bestaande online boekingssysteem.",
-
   "reviews": [
     {
       "name": "Ruurd",
       "text": "Snelle afspraak en vakkundig geholpen!",
-      "rating": null,
+      "rating": 5,
       "date": "",
       "published": true
     },
     {
       "name": "Rob",
       "text": "Fijne kapper",
-      "rating": null,
+      "rating": 5,
       "date": "",
       "published": true
     },
     {
       "name": "Jerry",
       "text": "Super goede kapper",
-      "rating": null,
+      "rating": 5,
       "date": "",
       "published": true
     }
