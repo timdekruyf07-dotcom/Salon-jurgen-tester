@@ -1,6 +1,17 @@
 /* ==========================================
    SALON JURGEN
    MODERN WEBSITE CONCEPT
+
+   MOBIELE OPTIMALISATIE
+   - RESPONSIVE NAVIGATIE
+   - RESPONSIVE HOMEPAGE
+   - RESPONSIVE FOTO'S
+   - BEHANDELINGEN
+   - OPENINGSTIJDEN
+   - CONTACT
+   - TOEGANKELIJKHEID
+
+   BESTAANDE KLEUREN BEHOUDEN
 ========================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
@@ -28,7 +39,9 @@
   --container: 1220px;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -39,6 +52,7 @@ html {
 
 body {
   margin: 0;
+  min-width: 320px;
   background: var(--cream);
   color: var(--ink);
   font-family: var(--font);
@@ -51,7 +65,8 @@ body.menu-open {
 
 button,
 input,
-textarea {
+textarea,
+select {
   font: inherit;
 }
 
@@ -69,8 +84,14 @@ button {
   cursor: pointer;
 }
 
-img {
+img,
+svg,
+video {
   max-width: 100%;
+}
+
+img {
+  display: block;
 }
 
 [hidden] {
@@ -89,6 +110,36 @@ img {
 
 
 /* ==========================================
+   ALGEMENE RESPONSIVE VEILIGHEID
+========================================== */
+
+.hero-layout > *,
+.about-layout > *,
+.hours-layout > *,
+.contact-layout > *,
+.services-grid > * {
+  min-width: 0;
+}
+
+h1,
+h2,
+h3,
+p {
+  overflow-wrap: break-word;
+}
+
+button,
+select {
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 3px;
+}
+
+
+/* ==========================================
    DEMOBALK
 ========================================== */
 
@@ -100,6 +151,7 @@ img {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: .04em;
+  line-height: 1.5;
 }
 
 
@@ -113,6 +165,7 @@ img {
   z-index: 100;
   background: rgba(23, 24, 24, .97);
   border-bottom: 1px solid rgba(255, 255, 255, .08);
+  -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
 }
 
@@ -210,9 +263,11 @@ img {
   display: none;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 6px;
   width: 44px;
   height: 44px;
+  min-width: 44px;
   padding: 10px;
   background: none;
   border: 1px solid rgba(255, 255, 255, .2);
@@ -236,10 +291,13 @@ img {
   justify-content: space-between;
   gap: 28px;
   min-height: 56px;
-  padding: 0 25px;
+  max-width: 100%;
+  padding: 13px 25px;
   border: 1px solid transparent;
   font-size: 13px;
   font-weight: 800;
+  line-height: 1.5;
+  text-align: left;
   transition:
     transform .25s,
     background .25s,
@@ -301,6 +359,7 @@ img {
   color: #ded8cf;
   font-size: 13px;
   font-weight: 600;
+  line-height: 1.6;
 }
 
 .text-link span {
@@ -309,13 +368,15 @@ img {
 }
 
 .inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
   color: var(--dark);
   font-size: 14px;
   font-weight: 800;
 }
 
 .inline-link span {
-  margin-left: 9px;
   color: var(--copper);
 }
 
@@ -333,7 +394,9 @@ img {
 
 .hero-layout {
   display: grid;
-  grid-template-columns: 1.04fr .96fr;
+  grid-template-columns:
+    minmax(0, 1.04fr)
+    minmax(0, .96fr);
   min-height: 690px;
 }
 
@@ -343,6 +406,7 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 0;
   padding: 110px 60px 80px 0;
 }
 
@@ -354,11 +418,13 @@ img {
   font-size: 11px;
   font-weight: 800;
   letter-spacing: .23em;
+  line-height: 1.6;
 }
 
 .eyebrow-line {
   display: block;
   width: 35px;
+  min-width: 35px;
   height: 1px;
   background: var(--copper);
 }
@@ -416,6 +482,7 @@ img {
 
 .hero-visual {
   position: relative;
+  min-width: 0;
   min-height: 690px;
   padding: 35px 0 35px 35px;
 }
@@ -566,6 +633,7 @@ img {
 
 .small-dot {
   width: 6px;
+  min-width: 6px;
   height: 6px;
   border-radius: 50%;
   background: var(--dark);
@@ -644,6 +712,7 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-width: 0;
   min-height: 340px;
   padding: 32px;
   border: 1px solid var(--line);
@@ -679,6 +748,7 @@ img {
   display: grid;
   place-items: center;
   width: 40px;
+  min-width: 40px;
   height: 40px;
   border: 1px solid var(--line);
   border-radius: 50%;
@@ -718,6 +788,11 @@ img {
   letter-spacing: .15em;
 }
 
+
+/* ==========================================
+   LINK ONDER BEHANDELINGEN
+========================================== */
+
 .services-footer {
   display: flex;
   justify-content: space-between;
@@ -743,7 +818,9 @@ img {
 
 .about-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
   align-items: center;
   gap: 100px;
 }
@@ -856,7 +933,9 @@ img {
 
 .hours-layout {
   display: grid;
-  grid-template-columns: .95fr 1.05fr;
+  grid-template-columns:
+    minmax(0, .95fr)
+    minmax(0, 1.05fr);
   gap: 95px;
   align-items: center;
 }
@@ -975,7 +1054,9 @@ img {
 
 .contact-layout {
   display: grid;
-  grid-template-columns: 1.1fr .9fr;
+  grid-template-columns:
+    minmax(0, 1.1fr)
+    minmax(0, .9fr);
   gap: 100px;
 }
 
@@ -1008,7 +1089,7 @@ img {
 
 .contact-detail-row {
   display: grid;
-  grid-template-columns: 110px 1fr;
+  grid-template-columns: 110px minmax(0, 1fr);
   gap: 20px;
   padding: 22px 0;
   border-bottom: 1px solid rgba(255, 255, 255, .13);
@@ -1105,7 +1186,7 @@ img {
 
 
 /* ==========================================
-   TABLET
+   GROTE TABLETS / KLEINE LAPTOPS
 ========================================== */
 
 @media (max-width: 1100px) {
@@ -1136,7 +1217,7 @@ img {
 
 
 /* ==========================================
-   MOBIEL MENU
+   TABLETS
 ========================================== */
 
 @media (max-width: 900px) {
@@ -1147,6 +1228,7 @@ img {
 
   .menu-toggle {
     display: flex;
+    flex-shrink: 0;
   }
 
   .navigation {
@@ -1160,11 +1242,15 @@ img {
     align-items: stretch;
     gap: 0;
 
-    padding: 20px 30px 30px;
+    max-height: calc(100vh - 110px);
+    max-height: calc(100dvh - 110px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    padding: 15px 30px 30px;
 
     background: var(--dark);
     border-top: 1px solid rgba(255, 255, 255, .1);
-
     box-shadow: 0 20px 40px rgba(0, 0, 0, .15);
   }
 
@@ -1173,91 +1259,184 @@ img {
   }
 
   .navigation > a:not(.nav-booking) {
-    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 13px 0;
     border-bottom: 1px solid rgba(255, 255, 255, .08);
     font-size: 14px;
   }
 
   .nav-booking {
+    min-height: 50px;
     margin-top: 22px;
   }
 
-}
-
-
-/* ==========================================
-   KLEINERE SCHERMEN
-========================================== */
-
-@media (max-width: 760px) {
-
-  .container {
-    width: min(calc(100% - 36px), var(--container));
+  .section {
+    padding: 95px 0;
   }
 
   .hero-layout {
-    grid-template-columns: 1fr;
-    min-height: 0;
+    min-height: 610px;
   }
 
   .hero-content {
-    padding: 75px 0 55px;
+    padding: 90px 26px 65px 0;
   }
 
   .hero-title {
-    font-size: clamp(43px, 9vw, 65px);
+    font-size: clamp(40px, 5vw, 56px);
   }
 
   .hero-description {
     font-size: 15px;
   }
 
+  .hero-visual {
+    min-height: 610px;
+    padding-left: 20px;
+  }
+
+  .hero-art,
+  .hero-image {
+    min-height: 540px;
+  }
+
+  .hero-stamp {
+    left: -22px;
+    width: 105px;
+    height: 105px;
+  }
+
+  .hero-stamp strong {
+    font-size: 36px;
+  }
+
+  .about-layout,
+  .hours-layout,
+  .contact-layout {
+    gap: 38px;
+  }
+
+  .about-visual,
+  .about-art {
+    min-height: 450px;
+  }
+
+  .hours-card {
+    padding: 30px;
+  }
+
+}
+
+
+/* ==========================================
+   MOBIELE SCHERMEN
+========================================== */
+
+@media (max-width: 760px) {
+
+  html {
+    scroll-padding-top: 85px;
+  }
+
+  .container {
+    width: min(calc(100% - 36px), var(--container));
+  }
+
+  .hero-layout {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .hero-content {
+    padding: 65px 0 45px;
+  }
+
+  .hero-title {
+    margin: 25px 0 22px;
+    font-size: clamp(38px, 8.5vw, 60px);
+    line-height: 1.13;
+  }
+
+  .hero-description {
+    max-width: 600px;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
   .hero-actions {
-    gap: 23px;
+    gap: 18px;
+    margin-top: 30px;
   }
 
   .hero-bottom {
-    margin-top: 50px;
+    margin-top: 43px;
   }
 
   .hero-visual {
-    min-height: 420px;
-    padding: 0 0 30px;
+    min-height: 0;
+    padding: 0 0 24px;
   }
 
   .hero-art {
-    min-height: 420px;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 5 / 4;
   }
 
   .hero-image {
-    min-height: 420px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    aspect-ratio: 5 / 4;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero-art-placeholder {
+    min-height: 100%;
+  }
+
+  .hero-art-circle {
+    width: 280px;
+    height: 280px;
   }
 
   .hero-stamp {
     left: auto;
-    right: -5px;
-    bottom: 20px;
-    width: 100px;
-    height: 100px;
+    right: 10px;
+    bottom: 10px;
+    width: 92px;
+    height: 92px;
   }
 
   .hero-stamp strong {
-    font-size: 35px;
+    font-size: 32px;
   }
 
   .hero-side-label {
     display: none;
   }
 
+
+  /* INTRO-STRIP */
+
   .intro-strip-inner {
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px 25px;
+    padding: 20px 0;
   }
 
   .intro-strip-inner > div {
     font-size: 9px;
+    line-height: 1.6;
   }
+
+
+  /* SECTIES */
 
   .section {
     padding: 75px 0;
@@ -1268,17 +1447,41 @@ img {
     margin-bottom: 35px;
   }
 
+  .section-heading h2,
+  .about-content h2,
+  .hours-intro h2,
+  .contact-intro h2 {
+    font-size: clamp(33px, 7vw, 50px);
+  }
+
   .section-heading > p {
+    max-width: 600px;
     margin-top: 20px;
   }
 
+
+  /* BEHANDELINGEN */
+
   .services-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
   }
 
   .service-card {
-    min-height: 285px;
+    min-height: 260px;
     padding: 26px;
+  }
+
+  .service-card h3 {
+    font-size: clamp(25px, 6vw, 34px);
+  }
+
+  .service-card-bottom {
+    gap: 14px;
+  }
+
+  .service-card-bottom span:last-child {
+    text-align: right;
   }
 
   .services-footer {
@@ -1286,19 +1489,19 @@ img {
     flex-direction: column;
   }
 
+
+  /* OVER DE SALON */
+
   .about-section {
     padding: 70px 0;
   }
 
   .about-layout {
-    grid-template-columns: 1fr;
-    gap: 60px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 45px;
   }
 
-  .about-visual {
-    min-height: 390px;
-  }
-
+  .about-visual,
   .about-art {
     min-height: 390px;
   }
@@ -1317,6 +1520,7 @@ img {
     bottom: -20px;
     width: 180px;
     min-height: 140px;
+    padding: 20px;
   }
 
   .about-label strong {
@@ -1324,11 +1528,18 @@ img {
   }
 
   .about-content {
-    padding: 20px 0;
+    padding: 15px 0 0;
   }
 
+  .about-content p {
+    max-width: 650px;
+  }
+
+
+  /* OPENINGSTIJDEN */
+
   .hours-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 40px;
   }
 
@@ -1340,14 +1551,32 @@ img {
     padding: 28px;
   }
 
+  .hours-row {
+    gap: 18px;
+  }
+
+
+  /* CONTACT */
+
   .contact-section {
     padding: 80px 0;
   }
 
   .contact-layout {
-    grid-template-columns: 1fr;
-    gap: 55px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 50px;
   }
+
+  .contact-detail-row {
+    grid-template-columns: 100px minmax(0, 1fr);
+  }
+
+  .contact-buttons .button {
+    min-height: 52px;
+  }
+
+
+  /* FOOTER */
 
   .footer-bottom {
     flex-direction: column;
@@ -1361,47 +1590,232 @@ img {
    KLEINE TELEFOONS
 ========================================== */
 
-@media (max-width: 420px) {
+@media (max-width: 480px) {
 
-  .brand-text strong {
-    font-size: 12px;
+  .nav-inner {
+    gap: 14px;
   }
 
-  .brand-text small {
-    font-size: 8px;
+  .navigation {
+    padding: 10px 18px 24px;
+  }
+
+  .hero-content {
+    padding-top: 50px;
+    padding-bottom: 37px;
   }
 
   .hero-title {
-    font-size: 41px;
+    font-size: clamp(33px, 8.7vw, 42px);
+    letter-spacing: -.06em;
   }
 
   .hero-eyebrow {
+    gap: 10px;
     font-size: 9px;
+    letter-spacing: .14em;
+  }
+
+  .eyebrow-line {
+    width: 22px;
+    min-width: 22px;
   }
 
   .hero-actions {
     align-items: stretch;
     flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero-actions .button {
+    width: 100%;
+    min-height: 52px;
+  }
+
+  .hero-actions .text-link {
+    min-height: 44px;
+  }
+
+  .hero-bottom {
+    margin-top: 35px;
   }
 
   .hero-art,
-  .hero-image,
-  .hero-visual {
-    min-height: 340px;
+  .hero-image {
+    aspect-ratio: 1 / 1;
   }
 
-  .art-monogram {
-    font-size: 140px;
+  .hero-stamp {
+    right: 8px;
+    bottom: 8px;
+    width: 78px;
+    height: 78px;
+  }
+
+  .hero-stamp strong {
+    font-size: 27px;
+  }
+
+  .hero-stamp span {
+    font-size: 7px;
+  }
+
+  .intro-strip-inner {
+    justify-content: flex-start;
+    gap: 12px 20px;
+  }
+
+  .intro-strip-inner > div {
+    font-size: 8px;
+  }
+
+  .section {
+    padding: 62px 0;
+  }
+
+  .section-heading h2,
+  .about-content h2,
+  .hours-intro h2,
+  .contact-intro h2 {
+    font-size: clamp(30px, 8vw, 38px);
+  }
+
+  .service-card {
+    min-height: 0;
+    gap: 28px;
+    padding: 22px;
+  }
+
+  .service-card h3 {
+    font-size: 27px;
+  }
+
+  .service-card-bottom {
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .service-card-bottom span:last-child {
+    text-align: left;
+  }
+
+  .about-section {
+    padding: 60px 0;
+  }
+
+  .about-visual,
+  .about-art {
+    min-height: 320px;
+  }
+
+  .about-label {
+    width: 150px;
+    min-height: 110px;
+    padding: 15px;
+  }
+
+  .about-label strong {
+    font-size: 22px;
+  }
+
+  .hours-card {
+    padding: 22px;
+  }
+
+  .hours-card-heading h3 {
+    font-size: 24px;
+  }
+
+  .hours-row strong,
+  .hours-row span {
+    font-size: 13px;
+  }
+
+  .contact-section {
+    padding: 65px 0;
   }
 
   .contact-detail-row {
-    grid-template-columns: 1fr;
-    gap: 8px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 7px;
   }
 
   .contact-buttons {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .contact-buttons .button {
+    width: 100%;
+  }
+
+  .footer-top {
+    padding: 34px 0;
+  }
+
+  .footer-bottom {
+    padding: 22px 0 30px;
+  }
+
+}
+
+
+/* ==========================================
+   ZEER KLEINE TELEFOONS
+========================================== */
+
+@media (max-width: 360px) {
+
+  .container {
+    width: calc(100% - 28px);
+  }
+
+  .hero-title {
+    font-size: 32px;
+  }
+
+  .hero-description {
+    font-size: 14px;
+  }
+
+  .button {
+    gap: 12px;
+    padding-inline: 18px;
+  }
+
+  .about-label {
+    width: 140px;
+  }
+
+}
+
+
+/* ==========================================
+   MOBIELE MENUHOOGTE
+========================================== */
+
+@media (max-width: 900px) {
+
+  .navigation {
+    max-height: calc(100vh - 105px);
+    max-height: calc(100dvh - 105px);
+  }
+
+}
+
+
+/* ==========================================
+   TOUCHSCREENS
+
+   GEEN ONNODIGE HOVER-ANIMATIES
+========================================== */
+
+@media (hover: none) {
+
+  .service-card:hover,
+  .button:hover,
+  .nav-booking:hover {
+    transform: none;
   }
 
 }
@@ -1428,6 +1842,7 @@ img {
   *::after {
     animation-duration: .01ms !important;
     transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
   }
 
 }
