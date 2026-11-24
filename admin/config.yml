@@ -1,7 +1,9 @@
 # ==========================================
 # SALON JURGEN
-# SVELTIA CMS CONFIGURATIE
+# SVELTIA CMS
+#
 # VIJF LOSSE PAGINA'S
+# REVIEWS MET STERREN EN DATUMS
 # ==========================================
 
 
@@ -25,7 +27,7 @@ locale: nl
 
 
 # ==========================================
-# MEDIA
+# AFBEELDINGEN
 # ==========================================
 
 media_folder: "images/uploads"
@@ -112,8 +114,6 @@ collections:
             required: false
             default: []
 
-            hint: "Voeg behandelingen toe, verwijder ze of pas de prijzen aan."
-
             fields:
 
               - label: Naam van de behandeling
@@ -128,13 +128,11 @@ collections:
                 name: price
                 widget: string
                 required: false
-                hint: "Bijvoorbeeld: € 25,50"
 
               - label: Behandeltijd
                 name: duration
                 widget: string
                 required: false
-                hint: "Bijvoorbeeld: 30 minuten"
 
               - label: Zichtbaar op website
                 name: published
@@ -179,6 +177,11 @@ collections:
             name: reviews_introduction
             widget: text
 
+
+          # =================================
+          # KLANTREVIEWS
+          # =================================
+
           - label: Klantreviews
             name: reviews
             widget: list
@@ -187,22 +190,59 @@ collections:
             required: false
             default: []
 
-            hint: "Voeg hier echte klantbeoordelingen toe."
+            hint: "Voeg echte klantbeoordelingen toe. Je kunt de volgorde van reviews hier aanpassen."
 
             fields:
+
+              # NAAM
 
               - label: Naam van de klant
                 name: name
                 widget: string
 
-              - label: Beoordeling
+
+              # REVIEWTEKST
+
+              - label: Beoordeling van de klant
                 name: text
                 widget: text
 
-              - label: Zichtbaar op website
+
+              # STERREN
+
+              - label: Aantal sterren
+                name: rating
+                widget: number
+                value_type: int
+                min: 1
+                max: 5
+                step: 1
+                required: false
+
+                hint: "Vul de werkelijke beoordeling in: 1, 2, 3, 4 of 5 sterren. Laat leeg als het aantal onbekend is."
+
+
+              # DATUM
+
+              - label: Datum van de review
+                name: date
+                widget: string
+                required: false
+                pattern:
+                  - '^$|^\d{4}-\d{2}-\d{2}$'
+                  - "Gebruik JJJJ-MM-DD, bijvoorbeeld 2026-11-24. Laat leeg als de datum onbekend is."
+
+                hint: "Bijvoorbeeld 2026-11-24. Gebruik de echte reviewdatum."
+
+
+              # ZICHTBAARHEID
+
+              - label: Zichtbaar op de website
                 name: published
                 widget: boolean
                 default: true
+
+                hint: "Zet uit om de review te bewaren zonder hem op de website te tonen."
 
 
       # ====================================
@@ -228,8 +268,6 @@ collections:
             required: false
             default: []
 
-            hint: "Voeg de openingstijden toe in de gewenste volgorde."
-
             fields:
 
               - label: Dag
@@ -239,7 +277,6 @@ collections:
               - label: Openingstijden
                 name: hours
                 widget: string
-                hint: "Bijvoorbeeld: 09:00 - 18:00 of Gesloten"
 
           - label: Extra opmerking bij openingstijden
             name: note
@@ -301,8 +338,6 @@ collections:
             name: booking_url
             widget: string
             required: false
-
-            hint: "Plak hier de officiële link naar het boekingssysteem."
 
           - label: Aanvullende informatie
             name: extra_information
