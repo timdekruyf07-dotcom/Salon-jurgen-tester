@@ -2,10 +2,15 @@
    SALON JURGEN
    STYLING VOOR LOSSE PAGINA'S
 
-   UPDATE:
-   - KAPPERSSCHAAR BEHOUDEN
-   - TIJDELIJKE LETTER J VERVANGEN
-   - SALONFOTO OP MEERDERE PAGINA'S
+   MOBIELE OPTIMALISATIE
+
+   BEHOUDEN:
+   - KAPPERSSCHAAR OP BINNENPAGINA'S
+   - SALONFOTO
+   - BESTAANDE KLEUREN
+   - REVIEWS MET STERREN
+   - PAGINERING
+   - SVELTIA CMS COMPATIBILITEIT
 ========================================== */
 
 
@@ -43,6 +48,20 @@ body {
   font-family: var(--heading);
   font-weight: 800;
   letter-spacing: -.065em;
+}
+
+.inner-hero h1,
+.page-cta h2,
+.home-cta-layout h2,
+.visit-layout h2,
+.contact-page-intro h2 {
+  overflow-wrap: break-word;
+}
+
+.contact-page-layout > *,
+.visit-layout > *,
+.reviews-page-grid > * {
+  min-width: 0;
 }
 
 
@@ -83,6 +102,7 @@ body {
   margin: 0;
   color: var(--muted);
   font-size: 14px;
+  line-height: 1.7;
 }
 
 .home-contact-section {
@@ -94,6 +114,10 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 55px;
+}
+
+.home-cta-layout > * {
+  min-width: 0;
 }
 
 .home-cta-layout h2 {
@@ -113,6 +137,10 @@ body {
   flex-direction: column;
   gap: 12px;
   min-width: 235px;
+}
+
+.home-cta-actions .button {
+  width: 100%;
 }
 
 
@@ -151,13 +179,13 @@ body {
 
 
 /* ==========================================
-   KAPPERSSCHAAR OP DE ACHTERGROND
+   KAPPERSSCHAAR OP ACHTERGROND
 
-   Deze blijft zichtbaar op:
-   - Behandelingen
-   - Over de salon
-   - Openingstijden
-   - Contact
+   BEHOUDEN OP:
+   - BEHANDELINGEN
+   - OVER DE SALON
+   - OPENINGSTIJDEN
+   - CONTACT
 ========================================== */
 
 .inner-hero-number {
@@ -190,7 +218,7 @@ body {
   width: 100%;
   height: 100%;
 
-  background-color: rgba(191, 139, 98, 0.17);
+  background-color: rgba(191, 139, 98, .17);
 
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='6' cy='6' r='3'/%3E%3Ccircle cx='6' cy='18' r='3'/%3E%3Cpath d='M8.12 8.12 12 12'/%3E%3Cpath d='M20 4 8.12 15.88'/%3E%3Cpath d='M14.8 14.8 20 20'/%3E%3C/svg%3E");
 
@@ -225,6 +253,7 @@ body {
   background: var(--white);
   color: var(--muted);
   text-align: center;
+  line-height: 1.8;
 }
 
 .service-card {
@@ -235,12 +264,10 @@ body {
 /* ==========================================
    OVER DE SALON
 
-   NIEUW:
-   De grote J wordt vervangen
-   door salon-jurgen-homepage.png.
+   DE GROTE J IS VERVANGEN
+   DOOR DE SALONFOTO.
 
-   Dit werkt op zowel de homepage
-   als de pagina Over de salon.
+   WERKT OP HOMEPAGE EN OVER DE SALON.
 ========================================== */
 
 .about-art {
@@ -256,7 +283,7 @@ body {
 }
 
 
-/* Subtiele donkere laag over de foto */
+/* DONKERE LAAG OVER DE FOTO */
 
 .about-art::after {
   content: "";
@@ -267,23 +294,23 @@ body {
 
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.12) 0%,
-    rgba(0, 0, 0, 0.02) 50%,
-    rgba(0, 0, 0, 0.30) 100%
+    rgba(0, 0, 0, .12) 0%,
+    rgba(0, 0, 0, .02) 50%,
+    rgba(0, 0, 0, .30) 100%
   );
 
   pointer-events: none;
 }
 
 
-/* De tijdelijke letter J verbergen */
+/* TIJDELIJKE LETTER J VERBERGEN */
 
 .about-art .about-circle {
   display: none;
 }
 
 
-/* Foto die later via CMS wordt toegevoegd */
+/* FOTO DIE VIA CMS TOEGEVOEGD KAN WORDEN */
 
 .about-photo {
   position: absolute;
@@ -300,7 +327,7 @@ body {
 }
 
 
-/* Tekst boven op de foto */
+/* TEKST BOVEN OP FOTO */
 
 .about-art-small {
   position: absolute;
@@ -319,7 +346,7 @@ body {
 }
 
 
-/* Decoratief blok rechtsonder */
+/* DECORATIEF BLOK RECHTSONDER */
 
 .about-label {
   position: absolute;
@@ -344,6 +371,7 @@ body {
 .review-page-card {
   display: flex;
   flex-direction: column;
+  min-width: 0;
   min-height: 270px;
   padding: 32px;
   background: #fffcf7;
@@ -364,6 +392,7 @@ body {
   font-size: 15px;
   line-height: 1.85;
   white-space: pre-line;
+  overflow-wrap: anywhere;
 }
 
 .review-page-author {
@@ -403,6 +432,65 @@ body {
 
 
 /* ==========================================
+   REVIEWS - SORTEREN
+
+   AANVULLEND OP SCRIPT.JS
+========================================== */
+
+.reviews-toolbar {
+  scroll-margin-top: 125px;
+}
+
+.reviews-sort-control {
+  min-width: 0;
+}
+
+.reviews-sort-control select {
+  max-width: 100%;
+}
+
+.review-stars {
+  flex-wrap: wrap;
+}
+
+.review-page-footer {
+  min-width: 0;
+}
+
+.review-page-footer > * {
+  min-width: 0;
+}
+
+.review-date {
+  overflow-wrap: anywhere;
+}
+
+
+/* ==========================================
+   REVIEWS - PAGINERING
+
+   AANVULLEND OP SCRIPT.JS
+========================================== */
+
+.reviews-pagination-wrapper {
+  width: 100%;
+}
+
+.reviews-pagination {
+  max-width: 100%;
+}
+
+.reviews-page-button {
+  flex-shrink: 0;
+  touch-action: manipulation;
+}
+
+.reviews-page-dots {
+  flex-shrink: 0;
+}
+
+
+/* ==========================================
    OPENINGSTIJDEN
 ========================================== */
 
@@ -412,7 +500,9 @@ body {
 
 .visit-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(0, 1fr);
   align-items: center;
   gap: 80px;
 }
@@ -424,6 +514,7 @@ body {
 }
 
 .visit-card {
+  min-width: 0;
   padding: 45px;
   background: #fffcf7;
   border: 1px solid var(--line);
@@ -448,7 +539,9 @@ body {
 
 .contact-page-layout {
   display: grid;
-  grid-template-columns: .95fr 1.05fr;
+  grid-template-columns:
+    minmax(0, .95fr)
+    minmax(0, 1.05fr);
   align-items: start;
   gap: 85px;
 }
@@ -472,6 +565,7 @@ body {
 }
 
 .contact-info-card {
+  min-width: 0;
   padding: 40px;
   background: #fffcf7;
   border: 1px solid var(--line);
@@ -499,7 +593,7 @@ body {
 
 .contact-info-row {
   display: grid;
-  grid-template-columns: 105px 1fr;
+  grid-template-columns: 105px minmax(0, 1fr);
   gap: 15px;
   padding: 22px 0;
   border-bottom: 1px solid var(--line);
@@ -532,6 +626,11 @@ body {
 .contact-info-row p {
   white-space: pre-line;
 }
+
+
+/* ==========================================
+   EXTRA CONTACTINFORMATIE
+========================================== */
 
 .contact-note-section {
   background: var(--cream-dark);
@@ -575,6 +674,10 @@ body {
   gap: 50px;
 }
 
+.page-cta-inner > * {
+  min-width: 0;
+}
+
 .page-cta h2 {
   margin: 0;
   font-size: clamp(33px, 4vw, 55px);
@@ -614,6 +717,40 @@ body {
     height: 260px;
   }
 
+  .home-cta-layout {
+    gap: 35px;
+  }
+
+}
+
+
+/* ==========================================
+   KLEINERE TABLETS
+========================================== */
+
+@media (max-width: 900px) {
+
+  .inner-hero {
+    padding: 80px 0;
+  }
+
+  .inner-hero h1 {
+    font-size: clamp(42px, 6vw, 62px);
+  }
+
+  .home-cta-layout {
+    align-items: flex-start;
+  }
+
+  .visit-card,
+  .contact-info-card {
+    padding: 30px;
+  }
+
+  .contact-info-row {
+    grid-template-columns: 90px minmax(0, 1fr);
+  }
+
 }
 
 
@@ -623,17 +760,24 @@ body {
 
 @media (max-width: 760px) {
 
+  /* PAGINATITELS */
+
   .inner-hero {
     min-height: 0;
-    padding: 70px 0;
+    padding: 68px 0;
   }
 
   .inner-hero h1 {
-    font-size: clamp(39px, 8vw, 58px);
+    max-width: 100%;
+    margin-bottom: 20px;
+    font-size: clamp(36px, 8vw, 54px);
+    line-height: 1.14;
   }
 
   .inner-hero p {
+    max-width: 590px;
     font-size: 15px;
+    line-height: 1.8;
   }
 
 
@@ -652,13 +796,20 @@ body {
   }
 
   .inner-hero-number::before {
-    background-color: rgba(191, 139, 98, 0.12);
+    background-color: rgba(191, 139, 98, .12);
   }
 
+
+  /* HOMEPAGE */
 
   .section-bottom-link {
     flex-direction: column;
     align-items: flex-start;
+    gap: 15px;
+  }
+
+  .home-contact-section {
+    padding: 75px 0;
   }
 
   .home-cta-layout,
@@ -668,41 +819,96 @@ body {
     gap: 35px;
   }
 
+  .home-cta-layout h2 {
+    font-size: clamp(35px, 7vw, 51px);
+  }
+
   .home-cta-actions {
     min-width: 0;
+    width: 100%;
   }
 
-  .contact-page-layout,
-  .visit-layout {
-    grid-template-columns: 1fr;
-    gap: 40px;
+
+  /* BEHANDELINGEN */
+
+  .services-empty {
+    padding: 30px 22px;
   }
+
+
+  /* OVER DE SALON */
+
+  .about-art {
+    background-position: center;
+  }
+
+  .about-art-small {
+    top: 20px;
+    left: 20px;
+  }
+
+
+  /* REVIEWS */
 
   .reviews-page-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
   }
 
   .review-page-card {
-    min-height: 240px;
+    min-height: 220px;
+    padding: 26px;
   }
 
-  .visit-card,
+  .reviews-toolbar {
+    scroll-margin-top: 95px;
+  }
+
+
+  /* OPENINGSTIJDEN */
+
+  .contact-page-layout,
+  .visit-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .visit-layout h2 {
+    font-size: clamp(35px, 7vw, 50px);
+  }
+
+  .visit-card {
+    padding: 28px;
+  }
+
+
+  /* CONTACT */
+
+  .contact-page-intro h2 {
+    font-size: clamp(35px, 7vw, 50px);
+  }
+
   .contact-info-card {
     padding: 28px;
   }
 
   .contact-info-row {
-    grid-template-columns: 95px 1fr;
+    grid-template-columns: 95px minmax(0, 1fr);
   }
+
+
+  /* CTA */
 
   .page-cta {
     padding: 65px 0;
   }
 
-  /* FOTO OP MOBIEL */
+  .page-cta h2 {
+    font-size: clamp(35px, 7vw, 48px);
+  }
 
-  .about-art {
-    background-position: center;
+  .page-cta .button {
+    align-self: flex-start;
   }
 
 }
@@ -712,27 +918,283 @@ body {
    KLEINE TELEFOONS
 ========================================== */
 
-@media (max-width: 420px) {
+@media (max-width: 480px) {
 
-  .contact-info-row {
-    grid-template-columns: 1fr;
-    gap: 9px;
+  /* PAGINATITELS */
+
+  .inner-hero {
+    padding: 55px 0;
   }
 
-  .contact-page-actions .button,
-  .page-cta .button {
+  .inner-hero h1 {
+    font-size: clamp(32px, 8vw, 40px);
+  }
+
+  .inner-hero p {
+    font-size: 14px;
+  }
+
+
+  /* KAPPERSSCHAAR */
+
+  .inner-hero-number {
+    right: -60px;
+    width: 195px;
+    height: 195px;
+  }
+
+
+  /* HOMEPAGE */
+
+  .home-contact-section {
+    padding: 62px 0;
+  }
+
+  .home-cta-layout {
+    gap: 26px;
+  }
+
+  .home-cta-layout h2 {
+    font-size: clamp(31px, 8vw, 39px);
+  }
+
+  .home-cta-actions {
+    gap: 10px;
+  }
+
+  .home-cta-actions .button {
     width: 100%;
   }
 
-  .visit-card,
+
+  /* FOTOLABELS */
+
+  .about-art-small {
+    top: 15px;
+    left: 15px;
+    font-size: 9px;
+  }
+
+  .about-label {
+    right: 0;
+    bottom: 0;
+    width: 150px;
+    min-height: 110px;
+    padding: 15px;
+  }
+
+  .about-label > span {
+    font-size: 9px;
+  }
+
+  .about-label strong {
+    font-size: 22px;
+  }
+
+
+  /* REVIEWS */
+
+  .reviews-page-grid {
+    gap: 14px;
+  }
+
+  .review-page-card {
+    min-height: 0;
+    padding: 22px;
+  }
+
+  .review-page-card p {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .review-page-footer {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .review-page-author {
+    font-size: 13px;
+  }
+
+  .review-date {
+    font-size: 11px;
+  }
+
+  .reviews-toolbar {
+    padding: 20px;
+  }
+
+  .reviews-count strong {
+    font-size: 18px;
+  }
+
+  .reviews-sort-control {
+    width: 100%;
+  }
+
+  .reviews-sort-control select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .reviews-pagination {
+    gap: 6px;
+    margin-top: 28px;
+  }
+
+  .reviews-page-button {
+    min-width: 40px;
+    min-height: 44px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .reviews-page-dots {
+    padding: 0 2px;
+  }
+
+  .reviews-page-status {
+    line-height: 1.6;
+  }
+
+
+  /* OPENINGSTIJDEN */
+
+  .visit-layout h2 {
+    font-size: clamp(31px, 8vw, 39px);
+  }
+
+  .visit-card {
+    padding: 23px;
+  }
+
+  .visit-card p {
+    font-size: 14px;
+  }
+
+
+  /* CONTACT */
+
+  .contact-page-intro h2 {
+    font-size: clamp(31px, 8vw, 39px);
+  }
+
   .contact-info-card {
     padding: 23px;
   }
 
+  .contact-info-heading h3 {
+    font-size: 30px;
+  }
+
+  .contact-info-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 9px;
+  }
+
+  .contact-page-actions .button {
+    width: 100%;
+  }
+
+  .contact-page-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .contact-note h2 {
+    font-size: 32px;
+  }
+
+
+  /* CTA */
+
+  .page-cta {
+    padding: 55px 0;
+  }
+
+  .page-cta h2 {
+    font-size: clamp(31px, 8vw, 39px);
+  }
+
+  .page-cta .button {
+    width: 100%;
+    align-self: stretch;
+  }
+
+}
+
+
+/* ==========================================
+   ZEER KLEINE TELEFOONS
+========================================== */
+
+@media (max-width: 360px) {
+
+  .inner-hero {
+    padding: 48px 0;
+  }
+
+  .inner-hero h1 {
+    font-size: 31px;
+  }
+
   .inner-hero-number {
-    right: -70px;
-    width: 195px;
-    height: 195px;
+    right: -65px;
+    width: 180px;
+    height: 180px;
+  }
+
+  .home-cta-layout h2,
+  .page-cta h2,
+  .visit-layout h2,
+  .contact-page-intro h2 {
+    font-size: 30px;
+  }
+
+  .review-page-card {
+    padding: 18px;
+  }
+
+  .reviews-toolbar {
+    padding: 18px;
+  }
+
+  .reviews-page-button {
+    min-width: 38px;
+    padding: 8px;
+  }
+
+  .contact-info-card,
+  .visit-card {
+    padding: 19px;
+  }
+
+}
+
+
+/* ==========================================
+   TOUCHSCREENS
+========================================== */
+
+@media (hover: none) {
+
+  .contact-info-row a {
+    text-underline-offset: 3px;
+  }
+
+}
+
+
+/* ==========================================
+   TOEGANKELIJKHEID
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .reviews-pagination {
+    scroll-behavior: auto;
   }
 
 }
