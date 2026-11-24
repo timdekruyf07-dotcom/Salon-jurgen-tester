@@ -1,7 +1,11 @@
 /* ==========================================
    SALON JURGEN
-   EXTRA STYLING VOOR LOSSE PAGINA'S
-   MET KAPPERSSCHAAR ACHTER PAGINATITELS
+   STYLING VOOR LOSSE PAGINA'S
+
+   UPDATE:
+   - KAPPERSSCHAAR BEHOUDEN
+   - TIJDELIJKE LETTER J VERVANGEN
+   - SALONFOTO OP MEERDERE PAGINA'S
 ========================================== */
 
 
@@ -147,13 +151,13 @@ body {
 
 
 /* ==========================================
-   NIEUW: KAPPERSSCHAAR OP DE ACHTERGROND
+   KAPPERSSCHAAR OP DE ACHTERGROND
 
-   Vervangt de grote cijfers 01, 02, 03 en 04.
-
-   We gebruiken een vectorillustratie.
-   Daardoor blijft de schaar scherp,
-   ook op grote schermen.
+   Deze blijft zichtbaar op:
+   - Behandelingen
+   - Over de salon
+   - Openingstijden
+   - Contact
 ========================================== */
 
 .inner-hero-number {
@@ -170,19 +174,12 @@ body {
     translateY(-50%)
     rotate(-18deg);
 
-  /*
-   * Verbergt de oorspronkelijke cijfers
-   * zonder HTML te hoeven aanpassen.
-   */
   font-size: 0;
   color: transparent;
 
   pointer-events: none;
   user-select: none;
 }
-
-
-/* De eigenlijke kappersschaar */
 
 .inner-hero-number::before {
   content: "";
@@ -194,12 +191,6 @@ body {
   height: 100%;
 
   background-color: rgba(191, 139, 98, 0.17);
-
-  /*
-   * SVG-illustratie van een schaar.
-   * De vorm wordt als masker gebruikt,
-   * zodat de kleur via CSS instelbaar is.
-   */
 
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='6' cy='6' r='3'/%3E%3Ccircle cx='6' cy='18' r='3'/%3E%3Cpath d='M8.12 8.12 12 12'/%3E%3Cpath d='M20 4 8.12 15.88'/%3E%3Cpath d='M14.8 14.8 20 20'/%3E%3C/svg%3E");
 
@@ -243,27 +234,96 @@ body {
 
 /* ==========================================
    OVER DE SALON
+
+   NIEUW:
+   De grote J wordt vervangen
+   door salon-jurgen-homepage.png.
+
+   Dit werkt op zowel de homepage
+   als de pagina Over de salon.
 ========================================== */
+
+.about-art {
+  position: relative;
+  isolation: isolate;
+
+  background-image:
+    url("images/salon-jurgen-homepage.png");
+
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+/* Subtiele donkere laag over de foto */
+
+.about-art::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.12) 0%,
+    rgba(0, 0, 0, 0.02) 50%,
+    rgba(0, 0, 0, 0.30) 100%
+  );
+
+  pointer-events: none;
+}
+
+
+/* De tijdelijke letter J verbergen */
+
+.about-art .about-circle {
+  display: none;
+}
+
+
+/* Foto die later via CMS wordt toegevoegd */
 
 .about-photo {
   position: absolute;
   inset: 0;
+  z-index: 1;
+
   display: block;
+
   width: 100%;
   height: 100%;
+
   object-fit: cover;
+  object-position: center;
 }
 
-.about-art {
-  isolation: isolate;
-}
+
+/* Tekst boven op de foto */
 
 .about-art-small {
-  z-index: 2;
+  position: absolute;
+  z-index: 3;
+
+  top: 25px;
+  left: 25px;
+
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .2em;
+
+  text-shadow: 0 2px 8px rgba(0, 0, 0, .6);
 }
 
+
+/* Decoratief blok rechtsonder */
+
 .about-label {
-  z-index: 3;
+  position: absolute;
+  z-index: 4;
 }
 
 
@@ -637,6 +697,12 @@ body {
 
   .page-cta {
     padding: 65px 0;
+  }
+
+  /* FOTO OP MOBIEL */
+
+  .about-art {
+    background-position: center;
   }
 
 }
