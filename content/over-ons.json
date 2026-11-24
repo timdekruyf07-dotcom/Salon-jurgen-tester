@@ -23,7 +23,7 @@
     {
       "name": "Jerry",
       "text": "Super goede kapper",
-      "rating": null,
+      "rating": 4,
       "date": "",
       "published": true
     }
