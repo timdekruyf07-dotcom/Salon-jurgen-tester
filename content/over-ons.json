@@ -1,10 +1,10 @@
 {
   "introduction": "Maak kennis met Salon Jurgen, een kapsalon voor heren in Haaksbergen.",
   "title": "Een vertrouwd adres voor een goede knipbeurt.",
-  "description": "Bij Salon Jurgen in Haaksbergen draait het om een verzorgde coupe en persoonlijke aandacht.\n\nOf je nu kiest voor een herenknipbeurt of een korte tondeusecoupe, het doel is dat je tevreden de salon verlaat.\n\nKlanten waarderen onder andere het vakmanschap, de gezellige sfeer en de prettige behandeling.",
+  "description": "Bij Salon Jurgen in Haaksbergen draait het om een verzorgde coupe en persoonlijke aandacht.\n\nOf je nu kiest voor een herenknipbeurt of een korte tondeusecoupe, het doel is dat je tevreden de salon verlaat.\n\nDeze demonstratiewebsite laat zien hoe de salon, behandelingen en klantbeoordelingen op een moderne manier gepresenteerd kunnen worden.",
   "image": "",
   "image_alt": "",
-  "reviews_introduction": "Ontdek de ervaringen van klanten van Salon Jurgen. De beoordelingen zijn afkomstig uit het bestaande online boekingssysteem.",
+  "reviews_introduction": "Hieronder zie je hoe klantbeoordelingen op de nieuwe website worden weergegeven. De eerste drie teksten zijn bestaande beoordelingen; de overige elf zijn fictieve voorbeeldreviews voor dit websiteconcept.",
   "reviews": [
     {
       "name": "Ruurd",
@@ -23,6 +23,83 @@
     {
       "name": "Jerry",
       "text": "Super goede kapper",
+      "rating": 5,
+      "date": "",
+      "published": true
+    },
+    {
+      "name": "Voorbeeldklant 01",
+      "text": "Al meerdere keren geweest en iedere keer tevreden over het resultaat. Er wordt goed geluisterd naar wat je wilt en er is altijd tijd voor een gezellig praatje.",
+      "rating": 5,
+      "date": "",
+      "published": true
+    },
+    {
+      "name": "Voorbeeldklant 02",
+      "text": "Prettige sfeer in de kapsalon en een mooie, verzorgde coupe. De afspraak verliep soepel en ik ben uitstekend geholpen.",
+      "rating": 5,
+      "date": "",
+      "published": true
+    },
+    {
+      "name": "Voorbeeldklant 03",
+      "text": "Een fijne kapper die zijn vak verstaat. Er wordt nauwkeurig gewerkt en het eindresultaat is precies zoals ik had gehoopt.",
+      "rating": 5,
+      "date": "",
+      "published": true
+    },
+    {
+      "name": "Voorbeeldklant 04",
+      "text": "Goede service en een ontspannen sfeer. Je voelt je meteen welkom en gaat met een frisse coupe weer naar buiten.",
+      "rating": 5,
+      "date": "",
+      "published": true
+    },
+    {
+      "name": "Voorbeeldklant 05",
+      "text": "Mijn haar zit weer helemaal goed. Vriendelijke ontvangst, professioneel geknipt en een prettige ervaring van begin tot eind.",
+      "rating": 5,
+      "date": "",
+      "published": true
+    },
+    {
+      "name": "Voorbeeldklant 06",
+      "text": "Een duidelijke afspraak, geen gedoe en een prima knipbeurt. Precies wat ik zoek bij een herenkapper.",
+      "rating": 5,
+      "date": "",
+      "published": true
+    },
+    {
+      "name": "Voorbeeldklant 07",
+      "text": "Er wordt echt aandacht besteed aan de details. Mijn kapsel ziet er weer strak en verzorgd uit. Een fijne ervaring.",
+      "rating": 5,
+      "date": "",
+      "published": true
+    },
+    {
+      "name": "Voorbeeldklant 08",
+      "text": "Gezellige kapsalon met persoonlijke aandacht. Er wordt meegedacht over het kapsel en het resultaat mag er zijn.",
+      "rating": 5,
+      "date": "",
+      "published": true
+    },
+    {
+      "name": "Voorbeeldklant 09",
+      "text": "Mijn afspraak was eenvoudig geregeld en ik werd vriendelijk geholpen. Het knippen verliep vlot en het resultaat is top.",
+      "rating": 5,
+      "date": "",
+      "published": true
+    },
+    {
+      "name": "Voorbeeldklant 10",
+      "text": "Netjes en zorgvuldig geknipt. De kapper neemt de tijd om te begrijpen wat je bedoelt en dat zie je terug in het resultaat.",
+      "rating": 5,
+      "date": "",
+      "published": true
+    },
+    {
+      "name": "Voorbeeldklant 11",
+      "text": "Een vertrouwd adres voor een goede knipbeurt. Ontspannen sfeer, vriendelijke service en een kapsel waar ik blij mee ben.",
       "rating": 5,
       "date": "",
       "published": true
