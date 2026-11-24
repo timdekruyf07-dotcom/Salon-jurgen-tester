@@ -1,14 +1,6 @@
 # ==========================================
 # SALON JURGEN
 # SVELTIA CMS
-#
-# VIJF LOSSE PAGINA'S
-# REVIEWS MET STERREN EN DATUMS
-# ==========================================
-
-
-# ==========================================
-# GITHUB
 # ==========================================
 
 backend:
@@ -20,15 +12,10 @@ backend:
 
 
 # ==========================================
-# TAAL
+# TAAL EN AFBEELDINGEN
 # ==========================================
 
 locale: nl
-
-
-# ==========================================
-# AFBEELDINGEN
-# ==========================================
 
 media_folder: "images/uploads"
 public_folder: "images/uploads"
@@ -45,7 +32,6 @@ collections:
 
     files:
 
-
       # ====================================
       # HOMEPAGE
       # ====================================
@@ -60,7 +46,6 @@ collections:
           - label: Bovenkant van de homepage
             name: hero
             widget: object
-            collapsed: true
 
             fields:
 
@@ -177,11 +162,6 @@ collections:
             name: reviews_introduction
             widget: text
 
-
-          # =================================
-          # KLANTREVIEWS
-          # =================================
-
           - label: Klantreviews
             name: reviews
             widget: list
@@ -190,25 +170,15 @@ collections:
             required: false
             default: []
 
-            hint: "Voeg echte klantbeoordelingen toe. Je kunt de volgorde van reviews hier aanpassen."
-
             fields:
-
-              # NAAM
 
               - label: Naam van de klant
                 name: name
                 widget: string
 
-
-              # REVIEWTEKST
-
               - label: Beoordeling van de klant
                 name: text
                 widget: text
-
-
-              # STERREN
 
               - label: Aantal sterren
                 name: rating
@@ -218,11 +188,7 @@ collections:
                 max: 5
                 step: 1
                 required: false
-
-                hint: "Vul de werkelijke beoordeling in: 1, 2, 3, 4 of 5 sterren. Laat leeg als het aantal onbekend is."
-
-
-              # DATUM
+                hint: "Vul alleen de werkelijke sterrenbeoordeling in."
 
               - label: Datum van de review
                 name: date
@@ -230,19 +196,12 @@ collections:
                 required: false
                 pattern:
                   - '^$|^\d{4}-\d{2}-\d{2}$'
-                  - "Gebruik JJJJ-MM-DD, bijvoorbeeld 2026-11-24. Laat leeg als de datum onbekend is."
-
-                hint: "Bijvoorbeeld 2026-11-24. Gebruik de echte reviewdatum."
-
-
-              # ZICHTBAARHEID
+                  - "Gebruik JJJJ-MM-DD of laat leeg."
 
               - label: Zichtbaar op de website
                 name: published
                 widget: boolean
                 default: true
-
-                hint: "Zet uit om de review te bewaren zonder hem op de website te tonen."
 
 
       # ====================================
@@ -278,7 +237,7 @@ collections:
                 name: hours
                 widget: string
 
-          - label: Extra opmerking bij openingstijden
+          - label: Extra opmerking
             name: note
             widget: text
             required: false
